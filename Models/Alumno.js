@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         nombre: {
             type: DataTypes.STRING
         },
-        precio: {
+        saldo: {
             type: DataTypes.FLOAT
         },
-        img: {
+        compra: {
             type: DataTypes.STRING
         }
     }, {

@@ -1,59 +1,15 @@
-## INDICE.
+# LunchUP-BACK
+## Configuracion de entorno
 
-*[Descripción del proyecto](#descripcion)
-
-*[Estado del proyecto](#estadoProyecto)
-
-*[Tecnologías utilizadas](#tecnologias)
-
-*[Desarrolladores del Proyecto](#desarrolladores)
-
-*[Licencia](#licencia)
-
-*[Conclusión](#conclusion)
-
-## <em>  Proyecto control de ayudas </em>
-
-<div id='descripcion' />
-
-## Descripcion del proyect
-
-EDITAR
-
-<div id='tecnologias' />
-
-##  Tecnologias usadas.
-
-* JavaScipt
-
-* React
-
-* CSS
-
-*EDITAR TECNOLOGIAS
-
-<div id='estadoProyecto' />
-
-## Estado del Proyecto
-
- <p align="left">
-   <img src="https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green">
-   </p>
-
-<div id='desarrolladores' />
-
-## Autores.
-
-[<img src="./src/assets/images/readme/WIN_20231121_14_36_28_Pro.png" width=115><br><sub>Guillermo Fernandez</sub>](https://github.com/GEdgardoFernandez)
-
-
-* EDITAR
-
-<div id='licencia' />
-
-## Licencia.
-
-Aun no posee una.
- 
-
- EDITAR.
+1. Crear un archivo .env con la siguiente estructura:
+```
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+DB_NAME=lunchup
+```
+2. Crear una base de datos con el nombre `lunchup` con PostgreSQL
+3. Hacer `$ npm install `
+4. Ejecutar `$ npm start` para que se creen las tablas por primera vez y levantar el servidor de trabajo.
+5. to be continued...

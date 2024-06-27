@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    name: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -22,6 +22,7 @@ module.exports = (sequelize) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.TEXT,

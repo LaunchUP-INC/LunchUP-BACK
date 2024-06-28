@@ -3,7 +3,7 @@ const { registerHandler } = require("../handlers/userHandler");
 
 const userRouter = Router();
 
-userRouter.post("/register", registerHandler);
+userRouter.post("/", registerHandler);
 //userRouter.post("/login", loginHandler);
 
 module.exports = userRouter;

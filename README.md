@@ -106,13 +106,20 @@ id: ID del plato (entero).
 }
 ```
 
-*GET /dishes/?name=*
+*GET /dishes/?search=[NAME]&orderBy=[CRITERIA]&filterMealTypeBy=[ID]
 
-Esta ruta permite obtener un plato o varios por su nombre.
+Esta ruta permite obtener un plato o varios por su nombre, ademas de poder combinar los parametros `orderBy` y `filterMealTypeBy` para ordenar en forma ascendente o descentendente cualquier campo de la tabla y filtrar de acuerdo al tipo de comida.
+
+Ejemplo de busqueda combinado:
+```
+http://localhost:3001/dishes?search=churrasco&orderBy=price-desc&filterMealTypeBy=5
+```
 
 *Parámetros de ruta*
 
-name: Nombre del plato o parte de el.
+search: Nombre del plato o parte de el.
+orderBy: Nombre del campo + criterio de ordenacion (price-asc / price-desc / id-asc / etc).
+filterMealTypeBy: ID del tipo de comida.
 
 *Respuesta exitosa (200)*
 ```
@@ -123,6 +130,17 @@ name: Nombre del plato o parte de el.
             "name": "pizza",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
+            "image": "",
+            "Meal_Type": {
+                "id": 1,
+                "name": "Almuerzo"
+            }
+        },
+        {
+            "id": 5,
+            "name": "pizza muzza",
+            "description": "pizza de muzzarella",
+            "price": 15,
             "image": "",
             "Meal_Type": {
                 "id": 1,

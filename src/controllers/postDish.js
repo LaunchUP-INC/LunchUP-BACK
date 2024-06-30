@@ -1,7 +1,7 @@
 const { Dish, Meal_Type } = require("../db");
 
 const postDish = async (dishData) => {
-  const { name, description, price, image, mealTypeId} = dishData;
+  const { name, description, price, image, mealTypeId } = dishData;
 
   const newDish = await Dish.create({
     name,

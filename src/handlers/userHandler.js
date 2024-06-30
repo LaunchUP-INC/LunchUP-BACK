@@ -1,10 +1,11 @@
-const { registerController } = require("../controllers/userController");
+const {
+  registerController,
+  loginController,
+} = require("../controllers/userController");
 
 const registerHandler = async (req, res) => {
   const { firstname, lastname, telephone, email, password } = req.body;
-  //const userExisting = await User.findOne({ where: { email } });
-  //if (userExisting)
-  // return res.status(400).json({ message: "User already exists" });
+
   try {
     const user = await registerController(
       firstname,
@@ -19,6 +20,14 @@ const registerHandler = async (req, res) => {
   }
 };
 
-//loginHandler;
+const loginHandler = async (req, res) => {
+  const { email, password } = req.query;
+  try {
+    const user = await loginController(email, password);
+    return res.status(200).json({ user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
-module.exports = { registerHandler };
+module.exports = { registerHandler, loginHandler };

@@ -1,9 +1,9 @@
 const { Router } = require("express");
-const { registerHandler } = require("../handlers/userHandler");
+const { registerHandler, loginHandler } = require("../handlers/userHandler");
 
 const userRouter = Router();
 
 userRouter.post("/", registerHandler);
-//userRouter.post("/login", loginHandler);
+userRouter.get("/", loginHandler);
 
 module.exports = userRouter;

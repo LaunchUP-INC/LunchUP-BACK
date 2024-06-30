@@ -6,5 +6,6 @@ const router = Router();
 
 router.use("/dishes", dishesRouter);
 router.use("/register", userRouter);
+router.use("/login", userRouter);
 
 module.exports = router;

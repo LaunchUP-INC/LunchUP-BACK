@@ -13,7 +13,7 @@ const postDish = async (dishData) => {
   const mealType = await Meal_Type.findByPk(mealTypeId);
 
   if (!mealType) {
-    throw new Error("El mealType no existe");
+    throw new Error(`El tipo de comida con ID ${mealTypeId} no existe.`);
   }
 
   await newDish.setMeal_Type(mealType);

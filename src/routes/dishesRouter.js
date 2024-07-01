@@ -3,8 +3,8 @@ const {
   createDishesHandler,
   getDishesHandler,
   getDetailHandler,
-  putDishesHandler,
   deleteDishesHandler,
+  putDishesHandler,
 } = require('../handlers/dishesHandler');
 const { validate } = require('../utils');
 
@@ -13,7 +13,7 @@ const dishesRouter = Router();
 dishesRouter.get('/:id', getDetailHandler);
 dishesRouter.get('/', getDishesHandler);
 dishesRouter.post('/', validate, createDishesHandler);
-dishesRouter.put('/:id', putDishesHandler);
 dishesRouter.delete('/:id', deleteDishesHandler);
+dishesRouter.put('/:id', putDishesHandler)
 
 module.exports = dishesRouter;

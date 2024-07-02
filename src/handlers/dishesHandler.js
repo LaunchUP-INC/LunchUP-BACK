@@ -1,8 +1,8 @@
 const postDish = require("../controllers/postDish");
 const { getDish, getAllDishes } = require("../controllers/getDishes");
 const getDishById = require("../controllers/getDishById");
-const deleteDish = require("../controllers/deleteDish");
-const putDish = require("../controllers/putDish");
+const { deleteDish } = require("../controllers/deleteDish");
+const { putDish } = require("../controllers/putDish");
 
 const createDishesHandler = async (req, res) => {
   const { name, description, price, image, mealTypeId } = req.body;

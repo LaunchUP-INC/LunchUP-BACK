@@ -1,22 +1,46 @@
 const {
-  registerController,
+  createUser,
+  putUser,
+  deleteUser,
   loginController,
 } = require("../controllers/userController");
 
-const registerHandler = async (req, res) => {
-  const { firstname, lastname, telephone, email, password } = req.body;
+const createUserHandler = async (req, res) => {
+  const { firstname, lastname, telephone, email, password, isAdmin } = req.body;
 
   try {
-    const user = await registerController(
+    const user = await createUser(
       firstname,
       lastname,
       telephone,
       email,
-      password
+      password,
+      isAdmin
     );
     res.status(200).json({ user });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const putUserHandler = async (req, res) => {
+  const { id } = req.params;
+  const userData = req.body;
+  try {
+    const user = await putUser(id, userData);
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteUserHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userDelete = await deleteUser(id);
+    res.status(200).json("Se eliminó el usuario con el ID: " + id);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -26,8 +50,13 @@ const loginHandler = async (req, res) => {
     const user = await loginController(email, password);
     return res.status(200).json({ user });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = { registerHandler, loginHandler };
+module.exports = { 
+  createUserHandler, 
+  putUserHandler, 
+  deleteUserHandler, 
+  loginHandler 
+};

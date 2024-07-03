@@ -6,13 +6,13 @@ const {
   deleteDishesHandler,
   putDishesHandler,
 } = require('../handlers/dishesHandler');
-const { validate } = require('../utils');
+const { validateDish } = require('../utils');
 
 const dishesRouter = Router();
 
 dishesRouter.get('/:id', getDetailHandler);
 dishesRouter.get('/', getDishesHandler);
-dishesRouter.post('/', validate, createDishesHandler);
+dishesRouter.post('/', validateDish, createDishesHandler);
 dishesRouter.delete('/:id', deleteDishesHandler);
 dishesRouter.put('/:id', putDishesHandler)
 

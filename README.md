@@ -40,7 +40,7 @@ Ninguno.
             "name": "pizza",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
-            "image": "",
+            "images": [],
             "Meal_Type": {
                 "id": 1,
                 "name": "Almuerzo"
@@ -51,7 +51,7 @@ Ninguno.
             "name": "ensalada de frutas",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
-            "image": "",
+            "images": [],
             "Meal_Type": {
                 "id": 1,
                 "name": "Almuerzo"
@@ -62,7 +62,7 @@ Ninguno.
             "name": "ensalada de frutas",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
-            "image": "",
+            "images": [],
             "Meal_Type": {
                 "id": 1,
                 "name": "Almuerzo"
@@ -73,7 +73,7 @@ Ninguno.
             "name": "ensalada de frutas",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
-            "image": "",
+            "images": [],
             "Meal_Type": {
                 "id": 1,
                 "name": "Almuerzo"
@@ -98,7 +98,7 @@ id: ID del plato (entero).
   "name": "Nombre del plato",
   "description": "Descripción del plato",
   "price": 10.99,
-  "image": "URL de la imagen"
+  "images": ["url de la imagen"]
   "Meal_Type": {
     "id": 1,
     "nam": "Vegano"
@@ -130,7 +130,7 @@ filterMealTypeBy: ID del tipo de comida.
             "name": "pizza",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
-            "image": "",
+            "images": [],
             "Meal_Type": {
                 "id": 1,
                 "name": "Almuerzo"
@@ -141,7 +141,7 @@ filterMealTypeBy: ID del tipo de comida.
             "name": "pizza muzza",
             "description": "pizza de muzzarella",
             "price": 15,
-            "image": "",
+            "images": [],
             "Meal_Type": {
                 "id": 1,
                 "name": "Almuerzo"
@@ -162,7 +162,7 @@ Esta ruta permite crear un nuevo plato.
   "name": "Nombre del plato",
   "description": "Descripción del plato",
   "price": 10.99,
-  "image": "URL de la imagen"
+  "images": ["URL de la imagen"]
   "mealTypeId": 1
 }
 ```

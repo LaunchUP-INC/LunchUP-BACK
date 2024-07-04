@@ -1,7 +1,10 @@
+const cloudinary = require('../../cloudinaryConfig');
+
 const validateDish = (req, res, next) => {
-  const { name, price, image } = req.body;
+  const { name, description, price, images } = req.body;
   if ( 
     !name ||
+    !description ||
     !price
   ) {
     return res.status(400).json({ error: 'Faltan datos necesarios para crear el plato de comida' });
@@ -11,12 +14,19 @@ const validateDish = (req, res, next) => {
     return res.status(400).json({ error: 'El nombre no puede contener simbolos' });
   }
 
-  const isValidUrl = (url) => {
+  const isValidUrl = (urls) => {
     const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    return urlPattern.test(url);
+  
+    for (const url of urls) {
+      if (!urlPattern.test(url)) {
+        return false;
+      }
+    }
+  
+    return true;
   };
 
-  if (image && !isValidUrl(image)) {
+  if (images && !isValidUrl(images)) {
     return res.status(400).json({ error: 'La URL de la imagen no es válida '});
   }
   
@@ -79,7 +89,38 @@ const validateUser = (req, res, next) => {
   next();
 };
 
+const uploadImage = async (image) => {
+  try {
+    const result = await cloudinary.uploader.upload(image, {
+      folder: 'dishes',
+      resource_type: 'image'
+    });
+
+    return result.secure_url;
+  } catch (error) {
+    throw new Error(`Error al subir imagen a Cloudinary: ${error.message}`);
+  }
+};
+
+const handleDishesImages = async (allDishes) => {
+  try {
+    for (const dish of allDishes) {
+      const uploadedImages = await Promise.all(
+        dish.images.map(async (image) => await uploadImage(image, 'dishes'))
+      );
+
+      dish.images = uploadedImages;
+    }
+    
+    return allDishes;
+  } catch (error) {
+    throw new Error(`Error al manejar imágenes de platos: ${error.message}`);
+  }
+};
+
 module.exports = {
   validateDish,
-  validateUser
+  validateUser,
+  uploadImage,
+  handleDishesImages
 }

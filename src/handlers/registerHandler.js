@@ -12,7 +12,7 @@ const registerHandler = async (req, res) => {
       password,
       isAdmin
     );
-    res.status(200).json({ user });
+    res.status(200).json({ newId: user.id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

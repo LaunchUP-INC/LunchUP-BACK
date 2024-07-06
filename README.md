@@ -9,6 +9,9 @@ DB_PASSWORD=
 DB_HOST=
 DB_PORT=
 DB_NAME=lunchup
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 ```
 
 2. Crear una base de datos con el nombre `lunchup` con PostgreSQL
@@ -20,6 +23,18 @@ DB_NAME=lunchup
 ## API
 
 ### Dishes
+
+*TODAS LAS RUTAS DE /DISHES REQUIEREN UN AUTHORIZATION TOKEN OBTENIDO POR AUTH0*
+
+*Ejemplo*
+```
+const config = {
+  headers: {
+    'Authorization': `Bearer ${accessToken}`
+  }
+};
+axios.get('http://localhost:3001/dishes', config)
+```
 
 Este documento describe las rutas disponibles para interactuar con la entidad Dish en la API REST. Las operaciones incluidas son la creación, consulta y actualización de platos (Dishes).
 
@@ -124,7 +139,7 @@ filterMealTypeBy: ID del tipo de comida.
 *Respuesta exitosa (200)*
 ```
 {
-    "dishByName": [
+    "allDishes": [
         {
             "id": 4,
             "name": "pizza",

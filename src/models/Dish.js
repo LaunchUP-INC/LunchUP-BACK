@@ -15,16 +15,16 @@ module.exports = (sequelize) => {
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: true,
+        allowNull: false,
       },
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      image: {
-        type: DataTypes.STRING,
-        //isUrl: true,
+      images: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: true,
+        defaultValue: [],
       },
     },
     {

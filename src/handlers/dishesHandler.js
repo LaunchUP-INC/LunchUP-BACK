@@ -3,20 +3,27 @@ const { getDish } = require("../controllers/getDishes");
 const getDishById = require("../controllers/getDishById");
 const { deleteDish } = require("../controllers/deleteDish");
 const { putDish } = require("../controllers/putDish");
+const { handleDishesImages } = require("../utils");
 
 const createDishesHandler = async (req, res) => {
-  const { name, description, price, image, mealTypeId } = req.body;
+  const { name, description, price, mealTypeId, images } = req.body;
+
   try {
-    const newId = await postDish({
+    const dishData = {
       name,
       description,
       price,
-      image,
       mealTypeId,
-    });
-    res.status(200).json({ newId });
+      images
+    };
+
+    const uploadedDishes = await handleDishesImages([dishData]);
+    
+    const newId = await postDish(uploadedDishes[0]);
+    
+    res.status(201).json({ newId });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 

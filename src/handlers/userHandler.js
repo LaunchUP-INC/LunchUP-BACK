@@ -1,8 +1,8 @@
+const { sendEmail } = require("../controllers/sendEmail");
 const {
   registerController,
   loginController,
 } = require("../controllers/userController");
-const { sendEmail } = require("../utils/emailBuilder");
 
 const registerHandler = async (req, res) => {
   const { firstname, lastname, telephone, email, password } = req.body;
@@ -15,13 +15,8 @@ const registerHandler = async (req, res) => {
       email,
       password,
     );
-    const email = await sendEmail({
-      subject: "Bienvenido a LunchUP",
-      email: email,
-      name: firstname,
-      htmlContent: "Este es un mensaje de prueba",
-    });
-    res.status(200).json({ user });
+    const welcomeEmail = await sendEmail(email, firstname, "This is my first email");
+    res.status(200).json({ user, welcomeEmail });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

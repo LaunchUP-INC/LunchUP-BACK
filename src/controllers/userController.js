@@ -6,7 +6,7 @@ const registerController = async (
   lastname,
   telephone,
   email,
-  password
+  password,
 ) => {
   try {
     const userExisting = await User.findOne({ where: { email } });
@@ -50,7 +50,5 @@ const loginController = async (email, password) => {
     throw new Error(error.message);
   }
 };
-
-
 
 module.exports = { registerController, loginController };

@@ -3,6 +3,7 @@ const {
   putChild,
   deleteChild,
   selectChild,
+  selectAllChild,
 } = require("../controllers/childController");
 
 const createChildHandler = async (req, res) => {
@@ -47,9 +48,20 @@ const selectChildHandler = async (req, res) => {
   }
 };
 
+const allChildHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const childs = await selectAllChild(id);
+    res.status(200).json(childs);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}; 
+
 module.exports = {
   createChildHandler,
   putChildHandler,
   deleteChildHandler,
   selectChildHandler,
+  allChildHandler,
 };

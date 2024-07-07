@@ -41,9 +41,15 @@ const selectChild = async (id) => {
   return child;
 };
 
+const selectAllChild = async (id) => {
+  const childs = await Child.findAll({ where: { UserId: id } });
+  return childs
+}
+
 module.exports = {
   createChild,
   putChild,
   deleteChild,
   selectChild,
+  selectAllChild
 };

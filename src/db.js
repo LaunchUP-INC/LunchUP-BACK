@@ -36,7 +36,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Dish, User, Child, Meal_Type } = sequelize.models;
 
 User.hasMany(Child);
-Child.belongsTo(User), Child.belongsToMany(Dish, { through: "Child_Dish" });
+Child.belongsTo(User);
+Child.belongsToMany(Dish, { through: "Child_Dish" });
 Dish.belongsToMany(Child, { through: "Child_Dish" });
 Dish.belongsTo(Meal_Type);
 Meal_Type.hasMany(Dish);

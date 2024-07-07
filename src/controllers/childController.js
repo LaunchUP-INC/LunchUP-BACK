@@ -3,15 +3,11 @@ const { Child, User } = require("../db");
 const createChild = async (firstname, lastname, gradeLevel, id) => {
   const user = await User.findByPk(id);
 
-  const existinChild = await Child.findOne({ where: { firstname } });
-  if (existinChild) {
-    throw new Error("Ya posee un perfil con ese nombre");
-  }
   const newChild = await Child.create({
     firstname,
     lastname,
     gradeLevel,
-    UserId: user.id, // Asegura que el nuevo hijo tenga el ID del usuario
+    UserId: user.id,
   });
 
   return newChild;
@@ -41,7 +37,7 @@ const deleteChild = async (id) => {
 };
 
 const selectChild = async (id) => {
-  const child = await Child.findOne({ where: { id: id } });
+  const child = await Child.findOne({ where: { id } });
   return child;
 };
 

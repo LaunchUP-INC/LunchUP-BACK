@@ -1,13 +1,13 @@
 const { Dish, Meal_Type } = require("../db");
-
+  
 const postDish = async (dishData) => {
-  const { name, description, price, image, mealTypeId } = dishData;
-
+  const { name, description, price, images, mealTypeId } = dishData;
+  
   const newDish = await Dish.create({
     name,
     description,
     price,
-    image,
+    images
   });
 
   const mealType = await Meal_Type.findByPk(mealTypeId);

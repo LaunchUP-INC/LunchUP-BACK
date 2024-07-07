@@ -1,33 +1,4 @@
 const { User } = require("../db");
-const bcrypt = require("bcrypt");
-
-const createUser = async (
-  firstname,
-  lastname,
-  telephone,
-  email,
-  password,
-  isAdmin
-) => {
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      throw new Error("El usuario ya existe");
-    }
-
-    const salt = 10;
-    const hash = await bcrypt.hash(password, salt);
-
-    const newUser = await User.create({
-      firstname,
-      lastname,
-      telephone,
-      email,
-      password: hash,
-      isAdmin
-    });
-   
-    return newUser;
-};
 
 const putUser = async (id, userData) => {
   const { firstname, lastname, telephone, email, password, isAdmin } = userData;
@@ -59,24 +30,7 @@ const deleteUser = async (id) => {
   return user;
 };
 
-const loginController = async (email, password) => {
-  try {
-    const userExisting = await User.findOne({ where: { email: email } });
-    if (!userExisting) throw new Error("Usuario no encontrado");
-
-    const passwordMatch = await bcrypt.compare(password, userExisting.password);
-    if (!passwordMatch) throw new Error("Contraseña incorrecta");
-
-    return { access: true, user: userExisting };
-
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
 module.exports = { 
-  createUser, 
   putUser, 
   deleteUser,
-  loginController 
 };

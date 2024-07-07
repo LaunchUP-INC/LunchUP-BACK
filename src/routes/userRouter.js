@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const {
-  createUserHandler,
   putUserHandler,
   deleteUserHandler,
-  loginHandler,
 } = require("../handlers/userHandler");
+const registerHandler = require("../handlers/registerHandler");
+const loginHandler = require("../handlers/loginHandler");
 const {
   createChildHandler,
   putChildHandler,
@@ -12,16 +12,17 @@ const {
   selectChildHandler,
 } = require("../handlers/childHandler");
 const { validateUser } = require("../utils");
+const checkJwt = require('../utils/auth');
 
 const userRouter = Router();
 
-userRouter.post("/register", validateUser, createUserHandler);
-userRouter.put("/:id", putUserHandler);
-userRouter.delete("/:id", deleteUserHandler);
+userRouter.post("/register", validateUser, registerHandler);
+userRouter.put("/:id", checkJwt, putUserHandler);
+userRouter.delete("/:id", checkJwt, deleteUserHandler);
 userRouter.get("/login", loginHandler);
-userRouter.post("/:id/child", createChildHandler);
-userRouter.put("/:id/child/:id", putChildHandler);
-userRouter.delete("/:id/child/:id", deleteChildHandler);
-userRouter.get("/:id/child/:id", selectChildHandler);
+userRouter.post("/:id/child", checkJwt, createChildHandler);
+userRouter.put("/:id/child/:id", checkJwt, putChildHandler);
+userRouter.delete("/:id/child/:id", checkJwt, deleteChildHandler);
+userRouter.get("/:id/child/:id", checkJwt, selectChildHandler);
 
 module.exports = userRouter;

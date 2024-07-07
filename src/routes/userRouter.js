@@ -1,18 +1,14 @@
 const { Router } = require("express");
 const { 
-  createUserHandler, 
   putUserHandler, 
   deleteUserHandler, 
-  loginHandler 
 } = require("../handlers/userHandler");
-const { validateUser } = require("../utils");
+const checkJwt = require('../utils/auth');
 
 const userRouter = Router();
 
-userRouter.post("/", validateUser, createUserHandler);
-userRouter.put("/:id", putUserHandler);
-userRouter.delete("/:id", deleteUserHandler);
-userRouter.get("/", loginHandler);
+userRouter.put("/:id", checkJwt, putUserHandler);
+userRouter.delete("/:id", checkJwt, deleteUserHandler);
 
 module.exports = userRouter;
 

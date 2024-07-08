@@ -1,7 +1,7 @@
 const { Dish, Meal_Type } = require("../db");
   
 const postDish = async (dishData) => {
-  const { name, description, price, images, mealTypeId } = dishData;
+  const { name, description, price, images, mealTypes } = dishData;
   
   const newDish = await Dish.create({
     name,
@@ -10,13 +10,13 @@ const postDish = async (dishData) => {
     images
   });
 
-  const mealType = await Meal_Type.findByPk(mealTypeId);
+  const result = await Meal_Type.findAll({
+    where: {
+      id: mealTypes.map(id => parseInt(id))
+    }
+  });
 
-  if (!mealType) {
-    throw new Error(`El tipo de comida con ID ${mealTypeId} no existe.`);
-  }
-
-  await newDish.setMeal_Type(mealType);
+  await newDish.setMeal_Types(result);
 
   if (!newDish) {
     throw new Error(`Error al crear el plato de comida: ${error.message}`);

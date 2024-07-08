@@ -4,7 +4,8 @@ const mealTypes = [
   { name: 'conventional' },
   { name: 'vegan' },
   { name: 'vegetarian' },
-  { name: 'gluten-free' }
+  { name: 'gluten-free' },
+  { name: 'lactose-free'}
 ];
 
 const populateMealTypes = async () => {

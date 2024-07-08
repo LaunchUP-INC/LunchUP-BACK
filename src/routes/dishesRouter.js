@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const {
   createDishesHandler,
   getDishesHandler,
@@ -13,7 +15,7 @@ const dishesRouter = Router();
 
 dishesRouter.get('/:id', checkJwt, getDetailHandler);
 dishesRouter.get('/', checkJwt, getDishesHandler);
-dishesRouter.post('/', checkJwt, validateDish, createDishesHandler);
+dishesRouter.post('/', checkJwt, upload.array('images', 10), validateDish, createDishesHandler);
 dishesRouter.delete('/:id', checkJwt, deleteDishesHandler);
 dishesRouter.put('/:id', checkJwt, putDishesHandler)
 

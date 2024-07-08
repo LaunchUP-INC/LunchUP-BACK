@@ -6,7 +6,8 @@ const { putDish } = require("../controllers/putDish");
 const { handleDishesImages } = require("../utils");
 
 const createDishesHandler = async (req, res) => {
-  const { name, description, price, mealTypes, images } = req.body;
+  const { name, description, price, mealTypes } = req.body;
+  const images = req.files.map(file => file.path); 
 
   try {
     const dishData = {

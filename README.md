@@ -55,7 +55,7 @@ Ninguno.
             "name": "pizza",
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
-            "images": [],
+            "images": ["https://algunaimagen.jpg"],
             "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
@@ -180,7 +180,7 @@ Esta ruta permite crear un nuevo plato.
   "name": "Nombre del plato",
   "description": "Descripción del plato",
   "price": 10.99,
-  "images": ["URL de la imagen"]
+  "images": [binary, binary]
   "mealTypes": [1, 2]
 }
 ```

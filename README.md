@@ -56,10 +56,10 @@ Ninguno.
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
             "images": [],
-            "Meal_Type": {
+            "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
-            }
+            }]
         },
         {
             "id": 3,
@@ -67,10 +67,10 @@ Ninguno.
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
             "images": [],
-            "Meal_Type": {
+            "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
-            }
+            }]
         },
         {
             "id": 2,
@@ -78,10 +78,10 @@ Ninguno.
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
             "images": [],
-            "Meal_Type": {
+            "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
-            }
+            }]
         },
         {
             "id": 1,
@@ -89,10 +89,10 @@ Ninguno.
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
             "images": [],
-            "Meal_Type": {
+            "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
-            }
+            }]
         }
     ]
 }
@@ -114,10 +114,10 @@ id: ID del plato (entero).
   "description": "Descripción del plato",
   "price": 10.99,
   "images": ["url de la imagen"]
-  "Meal_Type": {
+  "Meal_Types": [{
     "id": 1,
     "nam": "Vegano"
-  }
+  }]
 }
 ```
 
@@ -127,14 +127,14 @@ Esta ruta permite obtener un plato o varios por su nombre, ademas de poder combi
 
 Ejemplo de busqueda combinado:
 ```
-http://localhost:3001/dishes?search=churrasco&orderBy=price-desc&filterMealTypeBy=5
+http://localhost:3001/dishes?search=churrasco&orderBy=price-desc&filterMealTypeBy=2,3
 ```
 
 *Parámetros de ruta*
 
 search: Nombre del plato o parte de el.
 orderBy: Nombre del campo + criterio de ordenacion (price-asc / price-desc / id-asc / etc).
-filterMealTypeBy: ID del tipo de comida.
+filterMealTypeBy: IDs del tipo de comida.
 
 *Respuesta exitosa (200)*
 ```
@@ -146,10 +146,13 @@ filterMealTypeBy: ID del tipo de comida.
             "description": "mezcla fresca de frutas tropicales",
             "price": 25,
             "images": [],
-            "Meal_Type": {
+            "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
-            }
+            }, {
+                "id": 2,
+                "name": "Cena"
+            }]
         },
         {
             "id": 5,
@@ -157,10 +160,10 @@ filterMealTypeBy: ID del tipo de comida.
             "description": "pizza de muzzarella",
             "price": 15,
             "images": [],
-            "Meal_Type": {
+            "Meal_Types": [{
                 "id": 1,
                 "name": "Almuerzo"
-            }
+            }]
         }
     ]
 }
@@ -178,7 +181,7 @@ Esta ruta permite crear un nuevo plato.
   "description": "Descripción del plato",
   "price": 10.99,
   "images": ["URL de la imagen"]
-  "mealTypeId": 1
+  "mealTypes": [1, 2]
 }
 ```
 

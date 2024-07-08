@@ -12,8 +12,6 @@ const getDish = async (search, filterMealTypeBy, orderBy) => {
     };
   }
 
-  // hacer validacion que orderBy posicion [0] sea el nombre de algun atributo de la tabla
-  // hacer validacion que orderBy posicion [1] sea "asc" o "desc"
   if (orderBy) {
     const parts = orderBy.split('-');
     const field = parts[0];
@@ -22,25 +20,22 @@ const getDish = async (search, filterMealTypeBy, orderBy) => {
     order.push([field, criteria]);
   }
 
-  // hacer validacion que filterMealTypeBy sea un number
   if (filterMealTypeBy) {
-    const mealType = await Meal_Type.findOne({
-      where: {
-        id: filterMealTypeBy
-      }
-    });
-
-    if (mealType) {
-      where.MealTypeId = mealType.id
-    }
+    const mealTypeIds = filterMealTypeBy.split(',');
+    where['$Meal_Types.id$'] = {
+      [Op.in]: mealTypeIds
+    };
   }
 
   const allDishes = await Dish.findAll({ 
     where,
     include: {
       model: Meal_Type,
+      attributes: ['id', 'name'],
+      through: {
+        attributes: [],
+      },
     },
-    attributes: { exclude: ['MealTypeId'] },
     order: order
   });
   

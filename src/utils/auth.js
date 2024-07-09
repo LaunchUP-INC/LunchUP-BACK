@@ -1,9 +1,11 @@
 const { auth } = require('express-oauth2-jwt-bearer');
+require("dotenv").config();
+const { AUDIENCE, ISSUER_BASE_URL, JWT_TOKEN } = process.env;
 
 const jwtCheck = auth({
-  audience: 'http://localhost:3001',
-  issuerBaseURL: 'https://dev-qsskpalqd7swrrb7.us.auth0.com/',
-  tokenSigningAlg: 'RS256'
+  audience: AUDIENCE,
+  issuerBaseURL: ISSUER_BASE_URL,
+  tokenSigningAlg: JWT_TOKEN
 });
 
 module.exports = jwtCheck;

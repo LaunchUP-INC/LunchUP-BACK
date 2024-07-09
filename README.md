@@ -12,6 +12,12 @@ DB_NAME=lunchup
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
+BREVO_KEY=
+AUDIENCE=
+ISSUER_BASE_URL=
+JWT_TOKEN=
+ACCESS_TOKEN_MP=
+BACK_URL=
 ```
 
 2. Crear una base de datos con el nombre `lunchup` con PostgreSQL

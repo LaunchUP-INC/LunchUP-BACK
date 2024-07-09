@@ -19,12 +19,12 @@ const userRouter = Router();
 
 userRouter.post("/register", validateUser, registerHandler);
 userRouter.get("/login", loginHandler);
-userRouter.put("/:id", checkJwt, putUserHandler);
-userRouter.delete("/:id", checkJwt, deleteUserHandler);
-userRouter.post("/:id/child", checkJwt, createChildHandler);
-userRouter.get("/:id/child", checkJwt, allChildHandler);
-userRouter.put("/child/:id", checkJwt, putChildHandler);
-userRouter.delete("/child/:id", checkJwt, deleteChildHandler);
-userRouter.get("/child/:id", checkJwt, selectChildHandler);
+userRouter.put("/:id", putUserHandler);
+userRouter.delete("/:id", deleteUserHandler);
+userRouter.post("/:id/child", createChildHandler);
+userRouter.get("/:id/child", allChildHandler);
+userRouter.put("/child/:id", putChildHandler);
+userRouter.delete("/child/:id", deleteChildHandler);
+userRouter.get("/child/:id", selectChildHandler);
 
 module.exports = userRouter;

@@ -1,22 +1,30 @@
 const postDish = require("../controllers/postDish");
-const { getDish, getAllDishes } = require("../controllers/getDishes");
+const { getDish } = require("../controllers/getDishes");
 const getDishById = require("../controllers/getDishById");
 const { deleteDish } = require("../controllers/deleteDish");
 const { putDish } = require("../controllers/putDish");
+const { handleDishesImages } = require("../utils");
 
 const createDishesHandler = async (req, res) => {
-  const { name, description, price, image, mealTypeId } = req.body;
+  const { name, description, price, mealTypes } = req.body;
+  const images = req.files.map(file => file.path); 
+
   try {
-    const newId = await postDish({
+    const dishData = {
       name,
       description,
       price,
-      image,
-      mealTypeId,
-    });
-    res.status(200).json({ newId });
+      mealTypes,
+      images
+    };
+
+    const uploadedDishes = await handleDishesImages([dishData]);
+    
+    const newId = await postDish(uploadedDishes[0]);
+    
+    res.status(201).json({ newId });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -24,18 +32,13 @@ const getDishesHandler = async (req, res) => {
   const { search, filterMealTypeBy, orderBy } = req.query;
 
   try {
-    if (!search && !filterMealTypeBy && !orderBy) {
-      const allDishes = await getAllDishes();
-      return res.status(200).json({ allDishes });
-    }
+    const allDishes = await getDish(search, filterMealTypeBy, orderBy);
 
-    const dish = await getDish(search, filterMealTypeBy, orderBy);
-
-    if (!dish.length) {
+    if (!allDishes.length) {
       return res.status(404).json({ error: "No se encontraron platos" });
     }
 
-    res.status(200).json({ dish });
+    res.status(200).json({ allDishes });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

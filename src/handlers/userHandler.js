@@ -1,33 +1,30 @@
 const {
-  registerController,
-  loginController,
+  putUser,
+  deleteUser,
 } = require("../controllers/userController");
 
-const registerHandler = async (req, res) => {
-  const { firstname, lastname, telephone, email, password } = req.body;
-
+const putUserHandler = async (req, res) => {
+  const { id } = req.params;
+  const userData = req.body;
   try {
-    const user = await registerController(
-      firstname,
-      lastname,
-      telephone,
-      email,
-      password
-    );
-    res.status(200).json({ user });
+    const user = await putUser(id, userData);
+    res.status(200).json({ userId: user.id });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-const loginHandler = async (req, res) => {
-  const { email, password } = req.query;
+const deleteUserHandler = async (req, res) => {
+  const { id } = req.params;
   try {
-    const user = await loginController(email, password);
-    return res.status(200).json({ user });
+    await deleteUser(id);
+    res.status(200).json({ deletedId: id });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
-module.exports = { registerHandler, loginHandler };
+module.exports = { 
+  putUserHandler, 
+  deleteUserHandler, 
+};

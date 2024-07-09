@@ -39,8 +39,8 @@ User.hasMany(Child);
 Child.belongsTo(User);
 Child.belongsToMany(Dish, { through: "Child_Dish" });
 Dish.belongsToMany(Child, { through: "Child_Dish" });
-Dish.belongsTo(Meal_Type);
-Meal_Type.hasMany(Dish);
+Dish.belongsToMany(Meal_Type, { through: "Dish_MealTypes" });
+Meal_Type.belongsToMany(Dish, { through: "Dish_MealTypes" });
 
 module.exports = {
   Dish,

@@ -1,7 +1,7 @@
 const cloudinary = require('../../cloudinaryConfig');
 
 const validateDish = (req, res, next) => {
-  const { name, description, price, images } = req.body;
+  const { name, description, price } = req.body;
   if ( 
     !name ||
     !description ||
@@ -12,22 +12,6 @@ const validateDish = (req, res, next) => {
 
   if (!/^[a-zA-Z\s-]+$/.test(name)) {
     return res.status(400).json({ error: 'El nombre no puede contener simbolos' });
-  }
-
-  const isValidUrl = (urls) => {
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-  
-    for (const url of urls) {
-      if (!urlPattern.test(url)) {
-        return false;
-      }
-    }
-  
-    return true;
-  };
-
-  if (images && !isValidUrl(images)) {
-    return res.status(400).json({ error: 'La URL de la imagen no es válida '});
   }
   
   next();

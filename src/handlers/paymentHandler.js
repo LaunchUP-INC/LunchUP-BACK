@@ -1,6 +1,6 @@
 const { MercadoPagoConfig, Preference } = require("mercadopago");
 require("dotenv").config();
-const { ACCESS_TOKEN_MP, BACK_URL } = process.env;
+const { ACCESS_TOKEN_MP, FRONT_URL } = process.env;
 
 const client = new MercadoPagoConfig({
   accessToken: ACCESS_TOKEN_MP,
@@ -18,8 +18,8 @@ const paymentHandler = async (req, res) => {
       })),
 
       back_urls: {
-        success: `${BACK_URL}/home`,
-        failure: `${BACK_URL}`,
+        success: `${FRONT_URL}/home`,
+        failure: `${FRONT_URL}`,
       },
       auto_return: "approved",
     };

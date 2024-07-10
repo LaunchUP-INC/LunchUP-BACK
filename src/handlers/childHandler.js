@@ -8,9 +8,9 @@ const {
 
 const createChildHandler = async (req, res) => {
   const { id } = req.params;
-  const { firstname, lastname, gradeLevel } = req.body;
+  const { firstname, lastname, gradeLevel, schoolId } = req.body;
   try {
-    const child = await createChild(firstname, lastname, gradeLevel, id);
+    const child = await createChild(firstname, lastname, gradeLevel, id, schoolId);
     res.status(200).json({ child });
   } catch (error) {
     res.status(500).json({ error: error.message });

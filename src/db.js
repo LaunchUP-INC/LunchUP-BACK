@@ -33,10 +33,12 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Dish, User, Child, Meal_Type } = sequelize.models;
+const { Dish, User, Child, Meal_Type, School } = sequelize.models;
 
 User.hasMany(Child);
 Child.belongsTo(User);
+School.hasMany(Child);
+Child.belongsTo(School);
 Child.belongsToMany(Dish, { through: "Child_Dish" });
 Dish.belongsToMany(Child, { through: "Child_Dish" });
 Dish.belongsToMany(Meal_Type, { through: "Dish_MealTypes" });
@@ -47,5 +49,6 @@ module.exports = {
   User,
   Child,
   Meal_Type,
+  School,
   conn: sequelize,
 };

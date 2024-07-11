@@ -4,6 +4,7 @@ const {
   deleteChild,
   selectChild,
   selectAllChild,
+  markFavoriteDishes
 } = require("../controllers/childController");
 
 const createChildHandler = async (req, res) => {
@@ -58,10 +59,22 @@ const allChildHandler = async (req, res) => {
   }
 }; 
 
+const favoriteDishesHandler = async (req, res) => {
+  const { id } = req.params;
+  const { dishIds } = req.body;
+  try {
+    const result = await markFavoriteDishes (id, dishIds);
+    res.status(200).json({ result });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createChildHandler,
   putChildHandler,
   deleteChildHandler,
   selectChildHandler,
   allChildHandler,
+  favoriteDishesHandler
 };

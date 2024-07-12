@@ -10,7 +10,8 @@ const {
   putChildHandler,
   deleteChildHandler,
   selectChildHandler,
-  allChildHandler
+  allChildHandler,
+  favoriteDishesHandler
 } = require("../handlers/childHandler");
 const { validateUser } = require("../utils");
 const checkJwt = require('../utils/auth');
@@ -26,5 +27,6 @@ userRouter.get("/:id/child", allChildHandler);
 userRouter.put("/child/:id", putChildHandler);
 userRouter.delete("/child/:id", deleteChildHandler);
 userRouter.get("/child/:id", selectChildHandler);
+userRouter.put("/child/:id/favorite-dishes", favoriteDishesHandler);
 
 module.exports = userRouter;

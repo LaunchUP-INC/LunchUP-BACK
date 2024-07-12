@@ -1,4 +1,4 @@
-const { Child, User, School } = require("../db");
+const { Child, User, School, Dish } = require("../db");
 
 const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
   const user = await User.findByPk(id);
@@ -41,12 +41,19 @@ const deleteChild = async (id) => {
 };
 
 const selectChild = async (id) => {
-  const child = await Child.findOne({ 
-    where: { id },
-    include: {
-      model: School,
-      attributes: ["id", "name"],
-    },
+  const child = await Child.findByPk(id, { 
+    include: [
+      {
+        model: School,
+        attributes: ["id", "name"],
+      },
+      {
+        model: Dish,
+        attributes: ["id", "name"],
+        through: { attributes: [] },
+        required: false,
+      },
+    ],
     attributes: { exclude: ["SchoolId"] 
     }, 
   });
@@ -61,10 +68,18 @@ const selectChild = async (id) => {
 const selectAllChild = async (id) => {
   const childs = await Child.findAll({ 
     where: { UserId: id },
-    include: {
-      model: School,
-      attributes: ["id", "name"],
-    },
+    include: [
+      {
+        model: School,
+        attributes: ["id", "name"],
+      },
+      {
+        model: Dish,
+        attributes: ["id", "name"],
+        through: { attributes: [] },
+        required: false,
+      },
+    ],
     attributes: { exclude: ["SchoolId"] 
     },
   });
@@ -76,10 +91,44 @@ const selectAllChild = async (id) => {
   return childs;
 };
 
+const markFavoriteDishes = async (id, dishIds) => {
+
+  if (!Array.isArray(dishIds) || dishIds.length === 0) {
+    throw new Error("La lista de dishIds no es válida");
+  }
+
+  const child = await Child.findByPk(id, { 
+    include: [
+      {
+        model: School,
+        attributes: ["id", "name"],
+      },
+      {
+        model: Dish,
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+    attributes: { exclude: ["SchoolId"] 
+    }, 
+  });
+
+  if (!child) {
+    throw new Error (`No se encontró el comensal con ID: ${id}`);
+  }
+
+  await child.setDishes(dishIds);
+
+  return { message: `Platos marcados como favoritos para el niño con ID ${id}` };
+};
+
 module.exports = {
   createChild,
   putChild,
   deleteChild,
   selectChild,
-  selectAllChild
+  selectAllChild, 
+  markFavoriteDishes
 };

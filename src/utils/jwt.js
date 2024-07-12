@@ -2,7 +2,7 @@ require("dotenv").config();
 const { SECRET_KEY_TOKEN } = process.env;
 const jwt = require("jsonwebtoken");
 
-const tokenLogin = email => {
+const loginToken = email => {
   try {
     const token = jwt.sign({ email }, SECRET_KEY_TOKEN, {
       expiresIn: "1h",
@@ -18,13 +18,20 @@ const tokenLogin = email => {
   }
 };
 
-const verifyToken = (email, password) => {
+const verifyToken = (req, res, next) => {
   try {
-    const token = jwt.sign({ email, password }, SECRET_KEY_TOKEN, {
-      expiresIn: "24h",
-    });
+    const accessToken = req.headers.authorization;
 
-    console.log("Token verificado.");
+    !accessToken
+      ? res.status(400).json({ error: "No hay token" })
+      : jwt.verify(accessToken, SECRET_KEY_TOKEN, (err, user) => {
+          if (err) {
+            res.status(400).json({ error: "Token invalido" });
+          } else {
+            req.user = user;
+            next();
+          }
+        });
   } catch (error) {
     console.error("Error al verificar el token:", error);
 
@@ -32,4 +39,4 @@ const verifyToken = (email, password) => {
   }
 };
 
-module.exports = { tokenLogin, verifyToken };
+module.exports = { loginToken, verifyToken };

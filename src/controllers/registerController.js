@@ -1,6 +1,5 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
-const { tokenLogin } = require("../utils/jwt");
 
 const registerUser = async (
   firstname,
@@ -26,10 +25,6 @@ const registerUser = async (
     password: hash,
     isAdmin,
   });
-
-  const generateToken = await tokenLogin(email);
-
-  newUser.token = generateToken;
 
   return newUser;
 };

@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const getSchoolsHandler = require("../handlers/schoolHandler");
 
-const SchoolRouter = Router();
+const schoolRouter = Router();
 
-SchoolRouter.get("/", getSchoolsHandler);
+schoolRouter.get("/", getSchoolsHandler);
 
-module.exports = SchoolRouter;
+module.exports = schoolRouter;

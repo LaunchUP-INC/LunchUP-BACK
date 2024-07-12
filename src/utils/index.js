@@ -26,7 +26,7 @@ const validateUser = (req, res, next) => {
     !telephone || 
     !email || 
     !password || 
-    isAdmin === undefined
+    !isAdmin === undefined
   ) {
     return res.status(400).json({ error: 'Todos los campos deben ser completados' });
   }

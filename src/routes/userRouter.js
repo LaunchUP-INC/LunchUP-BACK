@@ -13,7 +13,7 @@ const {
   allChildHandler,
 } = require("../handlers/childHandler");
 
-const { validateUser } = require("../utils");
+const { validateUser, validateReviews } = require("../utils");
 const checkJwt = require("../utils/auth");
 const { createReviewsHandler } = require("../handlers/reviewsHandler");
 

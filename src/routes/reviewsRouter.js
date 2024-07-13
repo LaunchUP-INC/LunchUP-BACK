@@ -1,14 +1,14 @@
-// const { Router } = require("express");
-// const {
-//   createReviewsHandler,
-//   getReviewsHandler,
-//   deleteReviewsHandler,
-// } = require("../handlers/reviewsHandler");
+const { Router } = require("express");
+const {
+  getReviewsHandler,
+  getHighScoreReviews,
+  deleteReviewsHandler,
+} = require("../handlers/reviewsHandler");
 
-// const reviewsRouter = Router();
+const reviewsRouter = Router();
 
-// reviewsRouter.post("/", createReviewsHandler);
-// reviewsRouter.get("/", getReviewsHandler);
-// reviewsRouter.delete("/", deleteReviewsHandler);
+reviewsRouter.get("/", getReviewsHandler);
+reviewsRouter.get("/highScore", getHighScoreReviews);
+reviewsRouter.delete("/:id", deleteReviewsHandler);
 
-// module.exports = reviewsRouter;
+module.exports = reviewsRouter;

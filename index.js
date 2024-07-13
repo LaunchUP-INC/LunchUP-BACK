@@ -10,6 +10,7 @@ const startServer = async () => {
     await populateMealTypes();
     await populateDishes();
     await populateSchools();
+
     server.listen(3001, () => {
       console.log("%s listening at http://localhost:3001", server.name);
     });

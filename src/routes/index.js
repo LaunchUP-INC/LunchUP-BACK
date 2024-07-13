@@ -6,7 +6,7 @@ const userRouter = require("./userRouter");
 const mealTypesRouter = require("./mealTypesRouter");
 const paymentRouter = require("./paymentRouter");
 const schoolRouter = require("./schoolRouter");
-//const reviewsRouter = require("../routes/reviewsRouter");
+const reviewsRouter = require("../routes/reviewsRouter");
 
 const router = Router();
 
@@ -17,6 +17,6 @@ router.use("/user", userRouter);
 router.use("/meal", mealTypesRouter);
 router.use("/payment", paymentRouter);
 router.use("/school", schoolRouter);
-//router.use("/reviews", reviewsRouter);
+router.use("/reviews", reviewsRouter);
 
 module.exports = router;

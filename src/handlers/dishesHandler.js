@@ -7,7 +7,7 @@ const { handleDishesImages } = require("../utils");
 
 const createDishesHandler = async (req, res) => {
   const { name, description, price, mealTypes } = req.body;
-  const images = req.files.map(file => file.path); 
+  const images = req.files.map((file) => file.path);
 
   try {
     const dishData = {
@@ -15,13 +15,13 @@ const createDishesHandler = async (req, res) => {
       description,
       price,
       mealTypes,
-      images
+      images,
     };
 
     const uploadedDishes = await handleDishesImages([dishData]);
-    
+
     const newId = await postDish(uploadedDishes[0]);
-    
+
     res.status(201).json({ newId });
   } catch (error) {
     res.status(500).json({ error: error.message });

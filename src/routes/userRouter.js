@@ -13,8 +13,10 @@ const {
   allChildHandler,
   favoriteDishesHandler
 } = require("../handlers/childHandler");
-const { validateUser } = require("../utils");
-const checkJwt = require('../utils/auth');
+
+const { validateUser, validateReviews } = require("../utils");
+const checkJwt = require("../utils/auth");
+const { createReviewsHandler } = require("../handlers/reviewsHandler");
 
 const userRouter = Router();
 
@@ -27,6 +29,7 @@ userRouter.get("/:id/child", allChildHandler);
 userRouter.put("/child/:id", putChildHandler);
 userRouter.delete("/child/:id", deleteChildHandler);
 userRouter.get("/child/:id", selectChildHandler);
+userRouter.post("/:id/reviews", createReviewsHandler);
 userRouter.put("/child/:id/favorite-dishes", favoriteDishesHandler);
 
 module.exports = userRouter;

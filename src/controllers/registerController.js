@@ -7,26 +7,26 @@ const registerUser = async (
   telephone,
   email,
   password,
-  isAdmin
+  isAdmin,
 ) => {
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      throw new Error("El usuario ya existe");
-    }
+  const existingUser = await User.findOne({ where: { email } });
+  if (existingUser) {
+    throw new Error("El usuario ya existe");
+  }
 
-    const salt = 10;
-    const hash = await bcrypt.hash(password, salt);
+  const salt = 10;
+  const hash = await bcrypt.hash(password, salt);
 
-    const newUser = await User.create({
-      firstname,
-      lastname,
-      telephone,
-      email,
-      password: hash,
-      isAdmin
-    });
-   
-    return newUser;
+  const newUser = await User.create({
+    firstname,
+    lastname,
+    telephone,
+    email,
+    password: hash,
+    isAdmin,
+  });
+
+  return newUser;
 };
 
 module.exports = registerUser;

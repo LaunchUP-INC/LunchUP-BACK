@@ -11,6 +11,7 @@ const {
   deleteChildHandler,
   selectChildHandler,
   allChildHandler,
+  favoriteDishesHandler
 } = require("../handlers/childHandler");
 
 const { validateUser, validateReviews } = require("../utils");
@@ -29,5 +30,6 @@ userRouter.put("/child/:id", putChildHandler);
 userRouter.delete("/child/:id", deleteChildHandler);
 userRouter.get("/child/:id", selectChildHandler);
 userRouter.post("/:id/reviews", createReviewsHandler);
+userRouter.put("/child/:id/favorite-dishes", favoriteDishesHandler);
 
 module.exports = userRouter;

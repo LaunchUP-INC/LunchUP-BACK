@@ -26,7 +26,7 @@ const validateUser = (req, res, next) => {
     !telephone ||
     !email ||
     !password ||
-    isAdmin === undefined
+    !isAdmin
   ) {
     return res
       .status(400)

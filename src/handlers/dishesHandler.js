@@ -7,7 +7,12 @@ const { handleDishesImages } = require("../utils");
 
 const createDishesHandler = async (req, res) => {
   const { name, description, price, mealTypes } = req.body;
-  const images = req.files.map((file) => file.path);
+
+  let images = [];
+
+  if (req.files) {
+    images = req.files.map((file) => file.path);
+  }
 
   try {
     const dishData = {
@@ -30,12 +35,19 @@ const createDishesHandler = async (req, res) => {
 
 const putDishesHandler = async (req, res) => {
   const { id } = req.params;
-  const data = req.body;
-  const images = req.files.map((file) => file.path);
+  const { name, description, price, Meal_Types } = req.body;
+  let images = [];
 
+  if (req.files) {
+    images = req.files.map((file) => file.path);
+  }
+  
   try {
     const dishData = {
-      ...data,
+      name,
+      description,
+      price,
+      Meal_Types,
       images
     };
 

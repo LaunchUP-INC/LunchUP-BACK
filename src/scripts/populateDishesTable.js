@@ -82,23 +82,35 @@ const populateDishes = async () => {
       },
     ];
 
-    for (let dishData of dishes) {
-      const { name, description, price, images, mealTypes } = dishData;
+    const findAll = await Dish.findAll({
+      include: {
+        model: Meal_Type,
+        attributes: ['id', 'name'],
+        through: {
+          attributes: [],
+        },
+      },
+    });
 
-      const newDish = await Dish.create({
-        name,
-        description,
-        price,
-        images,
-      });
-
-      const result = await Meal_Type.findAll({
-        where: {
-          id: mealTypes.map(id => parseInt(id))
-        }
-      });
-    
-      await newDish.setMeal_Types(result);      
+    if (!findAll.length) {
+      for (let dishData of dishes) {
+        const { name, description, price, images, mealTypes } = dishData;
+  
+        const newDish = await Dish.create({
+          name,
+          description,
+          price,
+          images,
+        });
+  
+        const result = await Meal_Type.findAll({
+          where: {
+            id: mealTypes.map(id => parseInt(id))
+          }
+        });
+      
+        await newDish.setMeal_Types(result);      
+      }
     }
   } catch (error) {
     console.error("Error al crear platos mockeados:", error);

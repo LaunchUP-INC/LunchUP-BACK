@@ -25,7 +25,7 @@ const putDish = async (id, dishData) => {
   dish.name = name || dish.name;
   dish.description = description || dish.description;
   dish.price = price || dish.price;
-  dish.images = images || dish.images;
+  dish.images = images.length ? images : dish.images;
 
   if (Meal_Types && Meal_Types.length > 0) {
     const newMealTypes = await Meal_Type.findAll({ where: { id: Meal_Types }})

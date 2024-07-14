@@ -7,7 +7,7 @@ const postDish = async (dishData) => {
     name,
     description,
     price,
-    images
+    images: images.length ? images : null
   });
 
   const result = await Meal_Type.findAll({

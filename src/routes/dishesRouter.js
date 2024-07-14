@@ -17,6 +17,6 @@ dishesRouter.get('/:id', getDetailHandler);
 dishesRouter.get('/', getDishesHandler);
 dishesRouter.post('/', upload.array('images', 10), validateDish, createDishesHandler);
 dishesRouter.delete('/:id', deleteDishesHandler);
-dishesRouter.put('/:id', putDishesHandler)
+dishesRouter.put('/:id', upload.array('images', 10), putDishesHandler)
 
 module.exports = dishesRouter;

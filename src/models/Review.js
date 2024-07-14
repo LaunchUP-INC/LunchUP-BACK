@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
           is: /^[a-zA-Z0-9,.](?:[a-zA-Z0-9,.\s]*[a-zA-Z0-9,.])?$/,
         },
       },
+
       score: {
         type: DataTypes.INTEGER,
         allowNull: true,

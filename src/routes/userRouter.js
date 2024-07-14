@@ -11,7 +11,7 @@ const {
   deleteChildHandler,
   selectChildHandler,
   allChildHandler,
-  favoriteDishesHandler
+  favoriteDishesHandler,
 } = require("../handlers/childHandler");
 
 const { validateUser, validateReviews } = require("../utils");

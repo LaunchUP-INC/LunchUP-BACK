@@ -31,7 +31,12 @@ const getHighScoreReviewsController = async () => {
       "No se encontraron reseñas con puntuación mayor o igual a 3"
     );
   }
-  return highScoreReviews;
+
+  highScoreReviews.sort((a, b) => b.score - a.score);
+
+  const topBeterReviews = highScoreReviews.slice(0, 6);
+
+  return topBeterReviews;
 };
 
 const deleteReviewsController = async (id) => {
@@ -46,7 +51,7 @@ const deleteReviewsController = async (id) => {
   }
 
   if (review) {
-    console.log("el emnsaje fue eliminado");
+    console.log("el mensaje fue eliminado");
   }
   return review;
 };

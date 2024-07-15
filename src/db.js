@@ -42,6 +42,8 @@ School.hasMany(Child);
 Child.belongsTo(School);
 User.hasMany(Review);
 Review.belongsTo(User);
+User.hasMany(Rating);
+Rating.belongsTo(User);
 Dish.hasMany(Rating);
 Rating.belongsTo(Dish);
 Child.belongsToMany(Dish, { through: "Child_Dish" });

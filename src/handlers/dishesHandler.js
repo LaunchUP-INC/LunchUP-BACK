@@ -3,7 +3,7 @@ const { getDish } = require("../controllers/getDishes");
 const getDishById = require("../controllers/getDishById");
 const { deleteDish } = require("../controllers/deleteDish");
 const { putDish } = require("../controllers/putDish");
-const getStockDish = require("../controllers/getStockDish");
+const { getStockDish, updateStock } = require("../controllers/stockController");
 const { handleDishesImages } = require("../utils");
 
 const createDishesHandler = async (req, res) => {
@@ -37,7 +37,7 @@ const createDishesHandler = async (req, res) => {
 
 const putDishesHandler = async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, Meal_Types, stock } = req.body;
+  const { name, description, price, Meal_Types } = req.body;
   let images = [];
 
   if (req.files) {
@@ -51,7 +51,6 @@ const putDishesHandler = async (req, res) => {
       price,
       Meal_Types,
       images,
-      stock
     };
 
     const uploadedDishes = await handleDishesImages([dishData]);
@@ -100,21 +99,10 @@ const deleteDishesHandler = async (req, res) => {
   }
 };
 
-const getStockHandler = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const stock = await getStockDish(id);
-    res.status(200).json({ stock });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 module.exports = {
   createDishesHandler,
   getDishesHandler,
   getDetailHandler,
   deleteDishesHandler,
   putDishesHandler,
-  getStockHandler
 };

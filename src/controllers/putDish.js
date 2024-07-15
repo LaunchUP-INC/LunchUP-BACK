@@ -13,7 +13,7 @@ const getDish = async(id) => {
 } 
 
 const putDish = async (id, dishData) => {
-  const { name, description, price, images, Meal_Types, stock } = dishData;
+  const { name, description, price, images, Meal_Types } = dishData;
 
   const dish = await getDish(id);
 
@@ -25,7 +25,6 @@ const putDish = async (id, dishData) => {
   dish.description = description || dish.description;
   dish.price = price || dish.price;
   dish.images = images || dish.images;
-  dish.stock = stock || dish.stock;
 
   if (Meal_Types && Meal_Types.length > 0) {
     const newMealTypes = await Meal_Type.findAll({ where: { id: Meal_Types }})

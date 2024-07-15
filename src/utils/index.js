@@ -20,14 +20,7 @@ const validateDish = (req, res, next) => {
 const validateUser = (req, res, next) => {
   const { firstname, lastname, telephone, email, password, isAdmin } = req.body;
 
-  if (
-    !firstname ||
-    !lastname ||
-    !telephone ||
-    !email ||
-    !password ||
-    !isAdmin
-  ) {
+  if (!firstname || !lastname || !telephone || !email || !password) {
     return res
       .status(400)
       .json({ error: "Todos los campos deben ser completados" });

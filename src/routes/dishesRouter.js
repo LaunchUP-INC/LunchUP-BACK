@@ -7,16 +7,18 @@ const {
   getDetailHandler,
   deleteDishesHandler,
   putDishesHandler,
+  getStockHandler
 } = require('../handlers/dishesHandler');
 const { validateDish } = require('../utils');
 const checkJwt = require('../utils/auth');
 
 const dishesRouter = Router();
 
+dishesRouter.get('/:id/stock', getStockHandler);
 dishesRouter.get('/:id', getDetailHandler);
 dishesRouter.get('/', getDishesHandler);
 dishesRouter.post('/', upload.array('images', 10), validateDish, createDishesHandler);
 dishesRouter.delete('/:id', deleteDishesHandler);
-dishesRouter.put('/:id', upload.array('images', 10), putDishesHandler)
+dishesRouter.put('/:id', upload.array('images', 10), putDishesHandler);
 
 module.exports = dishesRouter;

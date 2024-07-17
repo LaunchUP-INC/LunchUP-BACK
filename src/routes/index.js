@@ -1,8 +1,7 @@
 const { Router } = require("express");
 const dishesRouter = require("./dishesRouter");
 const loginRouter = require("./loginRouter");
-const registerManualRouter = require("./registerManualRouter");
-const registerAuth0Router = require("./registerAuth0Router");
+const registerRouter = require("./registerRouter");
 const userRouter = require("./userRouter");
 const mealTypesRouter = require("./mealTypesRouter");
 const paymentRouter = require("./paymentRouter");
@@ -13,8 +12,7 @@ const ratingRouter = require("../routes/ratingRouter");
 const router = Router();
 
 router.use("/dishes", dishesRouter);
-router.use("/register/manual", registerManualRouter);
-router.use("/register/auth0", registerAuth0Router);
+router.use("/register", registerRouter);
 router.use("/login", loginRouter);
 router.use("/user", userRouter);
 router.use("/meal", mealTypesRouter);

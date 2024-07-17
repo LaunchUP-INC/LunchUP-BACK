@@ -6,7 +6,7 @@ const populateSchools = require("./src/scripts/populateSchoolsTable.js");
 
 const startServer = async () => {
   try {
-    await conn.sync({ force: true });
+    await conn.sync({ force: false });
     await populateMealTypes();
     await populateDishes();
     await populateSchools();

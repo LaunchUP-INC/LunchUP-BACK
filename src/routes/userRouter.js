@@ -5,8 +5,6 @@ const {
   putUserHandler,
   deleteUserHandler,
 } = require("../handlers/userHandler");
-const registerHandler = require("../handlers/registerHandler");
-const loginHandler = require("../handlers/loginHandler");
 const {
   createChildHandler,
   putChildHandler,
@@ -15,15 +13,10 @@ const {
   allChildHandler,
   favoriteDishesHandler,
 } = require("../handlers/childHandler");
-
-const { validateUser, validateReviews } = require("../utils");
-const checkJwt = require("../utils/auth");
 const { createReviewsHandler } = require("../handlers/reviewsHandler");
 
 const userRouter = Router();
 
-userRouter.post("/register", validateUser, registerHandler);
-userRouter.get("/login", loginHandler);
 userRouter.get("/", allUserHandler);
 userRouter.get("/:id", getUserHandler);
 userRouter.put("/:id", putUserHandler);

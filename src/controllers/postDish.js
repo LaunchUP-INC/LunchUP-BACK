@@ -2,13 +2,13 @@ const { Dish, Meal_Type } = require("../db");
 const { DatabaseError } = require("../errors/customErrors");
 
 const postDish = async dishData => {
-  const { name, description, price, images, mealTypes } = dishData;
-
+  const { name, description, price, images, mealTypes, stock } = dishData;
   const newDish = await Dish.create({
     name,
     description,
     price,
     images: images.length ? images : null,
+    stock,
   });
 
   const result = await Meal_Type.findAll({

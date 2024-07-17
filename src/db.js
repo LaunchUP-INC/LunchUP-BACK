@@ -58,5 +58,6 @@ module.exports = {
   Meal_Type,
   School,
   Review,
+  Rating,
   conn: sequelize,
 };

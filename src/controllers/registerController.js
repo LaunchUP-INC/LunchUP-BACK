@@ -1,6 +1,7 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
 const { ValidationError } = require("../errors/customErrors");
+const jwtDecode = require("jwt-decode");
 
 const registerUser = async (
   firstname,
@@ -30,4 +31,16 @@ const registerUser = async (
   return newUser;
 };
 
-module.exports = registerUser;
+const checkUser = async (token) => {
+  const decoded = jwtDecode(token);
+  const { email } = decoded;
+
+  const user = await User.findOne({ where: { email } });
+  return !!user;
+};
+
+module.exports = {
+  registerUser,
+  checkUser
+}
+

@@ -3,11 +3,12 @@ const { getDish } = require("../controllers/getDishes");
 const getDishById = require("../controllers/getDishById");
 const { deleteDish } = require("../controllers/deleteDish");
 const { putDish } = require("../controllers/putDish");
+const { getStockDish, updateStock } = require("../controllers/stockController");
 const { handleDishesImages } = require("../utils");
 const { NotFoundError, DatabaseError } = require("../errors/customErrors");
 
 const createDishesHandler = async (req, res) => {
-  const { name, description, price, mealTypes } = req.body;
+  const { name, description, price, mealTypes, stock } = req.body;
 
   let images = [];
 
@@ -22,6 +23,7 @@ const createDishesHandler = async (req, res) => {
       price,
       mealTypes,
       images,
+      stock
     };
 
     const uploadedDishes = await handleDishesImages([dishData]);

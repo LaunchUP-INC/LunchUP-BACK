@@ -1,6 +1,30 @@
-const { putUser, deleteUser } = require("../controllers/userController");
+const {
+  putUser,
+  deleteUser,
+  getAllUser,
+  getUser,
+} = require("../controllers/userController");
 
-const putUserHandler = async (req, res, next) => {
+const allUserHandler = async (req, res, next) => {
+  try {
+    const users = await getAllUser();
+    return res.status(200).json({ users });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUserHandler = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const users = await getUser(id);
+    return res.status(200).json({ users });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const putUserHandler = async (req, res) => {
   const { id } = req.params;
   const userData = req.body;
   try {
@@ -22,6 +46,8 @@ const deleteUserHandler = async (req, res, next) => {
 };
 
 module.exports = {
+  allUserHandler,
+  getUserHandler,
   putUserHandler,
   deleteUserHandler,
 };

@@ -2,7 +2,6 @@ const { Review, User } = require("../db");
 const { NotFoundError } = require("../errors/customErrors");
 
 const createReviewsController = async (comment, score, id) => {
-  console.log(id);
   const user = await User.findByPk(id);
   if (!user) {
     throw new NotFoundError("Usuario no encontrado");

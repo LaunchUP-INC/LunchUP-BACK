@@ -1,7 +1,8 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
+const jwtDecode = require('jwt-decode');
 
-const registerUser = async (
+const registerManualUser = async (
   firstname,
   lastname,
   telephone,
@@ -29,4 +30,21 @@ const registerUser = async (
   return newUser;
 };
 
-module.exports = registerUser;
+const registerAuth0User = async (token) => {
+  const decoded = jwtDecode(token);
+  const { email, given_name: firstname, family_name: lastname } = decoded;
+
+  const existingUser = await User.findOne({ where: { email } });
+  if (existingUser) {
+    throw new Error("El usuario ya existe");
+  }
+
+  const newUser = await User.create({ email, firstname, lastname });
+  
+  return newUser;
+};
+
+module.exports = {
+  registerManualUser,
+  registerAuth0User
+}

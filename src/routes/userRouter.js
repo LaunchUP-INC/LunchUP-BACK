@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const {
+  allUserHandler,
+  getUserHandler,
   putUserHandler,
   deleteUserHandler,
 } = require("../handlers/userHandler");
@@ -22,6 +24,8 @@ const userRouter = Router();
 
 userRouter.post("/register", validateUser, registerHandler);
 userRouter.get("/login", loginHandler);
+userRouter.get("/", allUserHandler);
+userRouter.get("/:id", getUserHandler);
 userRouter.put("/:id", putUserHandler);
 userRouter.delete("/:id", deleteUserHandler);
 userRouter.post("/:id/child", createChildHandler);

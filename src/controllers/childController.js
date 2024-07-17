@@ -1,5 +1,5 @@
 const { Child, User, School, Dish } = require("../db");
-const { ValidationError, NotFoundError } = require("../errors/customErrors");
+const { NotFoundError, DatabaseError } = require("../errors/customErrors");
 
 const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
   const user = await User.findByPk(id);
@@ -21,7 +21,7 @@ const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
 const putChild = async (id, firstname, lastname, gradeLevel, schoolId) => {
   const child = await Child.findOne({ where: { id } });
   if (!child) {
-    throw new ValidationError(`Error al actualizar los datos del perfil`);
+    throw new DatabaseError(`Error al actualizar los datos del perfil`);
   }
   child.firstname = firstname || child.firstname;
   child.lastname = lastname || child.lastname;
@@ -92,7 +92,7 @@ const selectAllChild = async id => {
 
 const markFavoriteDishes = async (id, dishIds) => {
   if (!Array.isArray(dishIds) || dishIds.length === 0) {
-    throw new NotFoundError("La lista de dishIds no es válida");
+    throw new NotFoundError("Error al marcar los platos favoritos");
   }
 
   const child = await Child.findByPk(id, {

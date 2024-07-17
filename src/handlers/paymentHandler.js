@@ -6,11 +6,11 @@ const client = new MercadoPagoConfig({
   accessToken: ACCESS_TOKEN_MP,
 });
 
-const paymentHandler = async (req, res) => {
+const paymentHandler = async (req, res, next) => {
   try {
     const items = req.body;
     const body = {
-      items: items.map((item) => ({
+      items: items.map(item => ({
         title: item.title,
         quantity: Number(item.quantity),
         unit_price: Number(item.unit_price),
@@ -30,7 +30,7 @@ const paymentHandler = async (req, res) => {
       id: result.id,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 

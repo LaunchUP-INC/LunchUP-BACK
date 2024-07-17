@@ -5,7 +5,7 @@ const {
   deleteReviewsController,
 } = require("../controllers/reviewsController");
 
-const createReviewsHandler = async (req, res) => {
+const createReviewsHandler = async (req, res, next) => {
   const id = req.params.id;
   const { comment, score } = req.body;
 
@@ -13,34 +13,34 @@ const createReviewsHandler = async (req, res) => {
     const review = await createReviewsController(comment, score, id);
     return res.status(200).json({ review });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
-const getReviewsHandler = async (req, res) => {
+const getReviewsHandler = async (req, res, next) => {
   try {
     const reviews = await getReviewsController();
     return res.status(200).json({ reviews });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-const getHighScoreReviews = async (req, res) => {
+const getHighScoreReviews = async (req, res, next) => {
   try {
     const reviews = await getHighScoreReviewsController();
     return res.status(200).json({ reviews });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-const deleteReviewsHandler = async (req, res) => {
+const deleteReviewsHandler = async (req, res, next) => {
   const { id } = req.params;
   try {
     const deleteReview = await deleteReviewsController(id);
     res.status(200).json(deleteReview);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 

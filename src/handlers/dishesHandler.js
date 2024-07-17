@@ -4,6 +4,7 @@ const getDishById = require("../controllers/getDishById");
 const { deleteDish } = require("../controllers/deleteDish");
 const { putDish } = require("../controllers/putDish");
 const { handleDishesImages } = require("../utils");
+const { NotFoundError, DatabaseError } = require("../errors/customErrors");
 
 const createDishesHandler = async (req, res) => {
   const { name, description, price, mealTypes } = req.body;
@@ -29,7 +30,11 @@ const createDishesHandler = async (req, res) => {
 
     res.status(201).json({ newId });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (error instanceof ValidationError) {
+      next(error);
+    } else {
+      next(new DatabaseError("Error al crear el plato de comida"));
+    }
   }
 };
 
@@ -56,7 +61,7 @@ const putDishesHandler = async (req, res) => {
     const response = await putDish(id, uploadedDishes[0]);
     res.status(200).json({ response });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -67,7 +72,7 @@ const getDishesHandler = async (req, res, next) => {
     const allDishes = await getDish(search, filterMealTypeBy, orderBy);
 
     if (!allDishes.length) {
-      return res.status(404).json({ error: "No se encontraron platos" });
+      next(new NotFoundError("No se encontraron platos de comida"));
     }
 
     res.status(200).json({ allDishes });
@@ -93,7 +98,7 @@ const deleteDishesHandler = async (req, res, next) => {
     const dishDelete = await deleteDish(id);
     res.status(200).json("Se eliminó el plato con el ID: " + id);
   } catch (error) {
-    next()
+    next(error);
   }
 };
 

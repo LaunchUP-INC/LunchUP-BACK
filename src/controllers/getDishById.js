@@ -13,7 +13,7 @@ const getDishById = async id => {
   });
 
   if (!dish) {
-    throw new NotFoundError("Platos no encontrados");
+    throw new NotFoundError("Plato de comida no encontrado");
   }
 
   return dish;

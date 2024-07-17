@@ -41,7 +41,7 @@ const getDish = async (search, filterMealTypeBy, orderBy) => {
   });
 
   if (!allDishes) {
-    throw new DatabaseError(`Error en la base de datos`);
+    throw new DatabaseError(`Error al obtener los platos de comida`);
   }
 
   return allDishes;

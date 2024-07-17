@@ -8,7 +8,7 @@ const deleteDish = async id => {
     },
   });
   if (!dish) {
-    throw new NotFoundError("Plato no encontrado");
+    throw new NotFoundError("Error al eliminar el plato de comida");
   }
   return dish;
 };

@@ -1,7 +1,7 @@
 const { loginController } = require("../controllers/loginController");
 const { loginToken } = require("../utils/jwt");
 
-const loginHandler = async (req, res) => {
+const loginHandler = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await loginController(email, password);
@@ -12,7 +12,7 @@ const loginHandler = async (req, res) => {
     res.cookie("token", token, { httpOnly: true });
     res.status(200).json({ username: req.user });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 

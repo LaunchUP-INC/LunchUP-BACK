@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
-const errorMiddleware = require("./middlewares/errors.js");
+const middlewareError = require("./middlewares/errors.js");
+const { NotFoundError } = require("./errors/customErrors");
 
 require("./db.js");
 
@@ -29,6 +30,11 @@ server.use((_, res, next) => {
 
 server.use("/", routes);
 
-server.use(errorMiddleware);
+server.use((req, res, next) => {
+  const error = new NotFoundError("Not Found");
+  next(error);
+});
+
+server.use(middlewareError);
 
 module.exports = server;

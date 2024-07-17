@@ -1,4 +1,4 @@
-const { AppError } = require("./customErrors");
+const { AppError } = require("../errors/customErrors");
 
 const middlewareError = (error, req, res, next) => {
   console.error("Error middleware:", error);
@@ -11,7 +11,7 @@ const middlewareError = (error, req, res, next) => {
   } else {
     res.status(500).json({
       status: "error",
-      message: "Internal Server Error",
+      message: error.message,
     });
   }
 };

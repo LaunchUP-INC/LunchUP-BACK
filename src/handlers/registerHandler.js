@@ -17,7 +17,7 @@ const registerHandler = async (req, res, next) => {
     await sendRegistrationEmail(email, firstname);
     res.status(200).json({ newId: user.id });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 

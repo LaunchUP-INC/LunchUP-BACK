@@ -4,17 +4,23 @@ const {
   deleteChild,
   selectChild,
   selectAllChild,
-  markFavoriteDishes
+  markFavoriteDishes,
 } = require("../controllers/childController");
 
-const createChildHandler = async (req, res) => {
+const createChildHandler = async (req, res, next) => {
   const { id } = req.params;
   const { firstname, lastname, gradeLevel, schoolId } = req.body;
   try {
-    const child = await createChild(firstname, lastname, gradeLevel, id, schoolId);
+    const child = await createChild(
+      firstname,
+      lastname,
+      gradeLevel,
+      id,
+      schoolId,
+    );
     res.status(200).json({ child });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -57,13 +63,13 @@ const allChildHandler = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}; 
+};
 
 const favoriteDishesHandler = async (req, res) => {
   const { id } = req.params;
   const { dishIds } = req.body;
   try {
-    const result = await markFavoriteDishes (id, dishIds);
+    const result = await markFavoriteDishes(id, dishIds);
     res.status(200).json({ result });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -76,5 +82,5 @@ module.exports = {
   deleteChildHandler,
   selectChildHandler,
   allChildHandler,
-  favoriteDishesHandler
+  favoriteDishesHandler,
 };

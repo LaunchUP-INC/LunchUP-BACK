@@ -11,7 +11,7 @@ const createDishesHandler = async (req, res) => {
   let images = [];
 
   if (req.files) {
-    images = req.files.map((file) => file.path);
+    images = req.files.map(file => file.path);
   }
 
   try {
@@ -39,20 +39,20 @@ const putDishesHandler = async (req, res) => {
   let images = [];
 
   if (req.files) {
-    images = req.files.map((file) => file.path);
+    images = req.files.map(file => file.path);
   }
-  
+
   try {
     const dishData = {
       name,
       description,
       price,
       Meal_Types,
-      images
+      images,
     };
 
     const uploadedDishes = await handleDishesImages([dishData]);
-    
+
     const response = await putDish(id, uploadedDishes[0]);
     res.status(200).json({ response });
   } catch (error) {
@@ -60,7 +60,7 @@ const putDishesHandler = async (req, res) => {
   }
 };
 
-const getDishesHandler = async (req, res) => {
+const getDishesHandler = async (req, res, next) => {
   const { search, filterMealTypeBy, orderBy } = req.query;
 
   try {
@@ -72,28 +72,28 @@ const getDishesHandler = async (req, res) => {
 
     res.status(200).json({ allDishes });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-const getDetailHandler = async (req, res) => {
+const getDetailHandler = async (req, res, next) => {
   const { id } = req.params;
 
   try {
     const dishDetail = await getDishById(id);
     res.status(200).json({ dishDetail });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-const deleteDishesHandler = async (req, res) => {
+const deleteDishesHandler = async (req, res, next) => {
   const { id } = req.params;
   try {
     const dishDelete = await deleteDish(id);
     res.status(200).json("Se eliminó el plato con el ID: " + id);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next()
   }
 };
 

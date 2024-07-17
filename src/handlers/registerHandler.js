@@ -1,7 +1,7 @@
 const registerUser = require("../controllers/registerController");
 const sendRegistrationEmail = require("../../brevoConfig.js");
 
-const registerHandler = async (req, res) => {
+const registerHandler = async (req, res, next) => {
   const { firstname, lastname, telephone, email, password, isAdmin } = req.body;
 
   try {

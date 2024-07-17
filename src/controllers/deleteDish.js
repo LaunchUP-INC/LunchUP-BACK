@@ -1,4 +1,5 @@
 const { Dish } = require("../db");
+const { NotFoundError } = require("../errors/customErrors");
 
 const deleteDish = async id => {
   const dish = await Dish.destroy({
@@ -7,7 +8,7 @@ const deleteDish = async id => {
     },
   });
   if (!dish) {
-    throw new Error("No existe plato de comida con ese Id");
+    throw new NotFoundError("Plato no encontrado");
   }
   return dish;
 };

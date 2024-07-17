@@ -1,10 +1,11 @@
 const { Review, User } = require("../db");
+const { NotFoundError } = require("../errors/customErrors");
 
 const createReviewsController = async (comment, score, id) => {
   console.log(id);
   const user = await User.findByPk(id);
   if (!user) {
-    throw new Error("User not found");
+    throw new NotFoundError("Usuario no encontrado");
   }
 
   const newReview = await Review.create({
@@ -18,7 +19,7 @@ const createReviewsController = async (comment, score, id) => {
 const getReviewsController = async () => {
   const reviews = await Review.findAll();
   if (!reviews) {
-    throw new Error(`Error al obtener los comentarios: ${error.message}`);
+    throw new NotFoundError(`Comentarios no encontrados`);
   }
 
   return reviews;
@@ -26,10 +27,10 @@ const getReviewsController = async () => {
 
 const getHighScoreReviewsController = async () => {
   const reviews = await getReviewsController();
-  const highScoreReviews = reviews.filter((review) => review.score >= 3);
+  const highScoreReviews = reviews.filter(review => review.score >= 3);
   if (!highScoreReviews || highScoreReviews.length === 0) {
-    throw new Error(
-      "No se encontraron reseñas con puntuación mayor o igual a 3"
+    throw new NotFoundError(
+      "Reseñas con puntuación mayor o igual a 3 no encontradas",
     );
   }
 
@@ -40,7 +41,7 @@ const getHighScoreReviewsController = async () => {
   return topBeterReviews;
 };
 
-const deleteReviewsController = async (id) => {
+const deleteReviewsController = async id => {
   console.log(id);
   const review = await Review.destroy({
     where: {
@@ -48,7 +49,7 @@ const deleteReviewsController = async (id) => {
     },
   });
   if (!review) {
-    throw new Error("No existe comentario con ese Id");
+    throw new NotFoundError("Comentario no encontrado");
   }
 
   if (review) {

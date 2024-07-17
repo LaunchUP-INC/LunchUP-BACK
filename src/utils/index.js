@@ -141,7 +141,7 @@ const validateReviews = (req, res, next) => {
   if (!validateScore(score)) {
     return res
       .status(400)
-      .json({ error: "debes ingresar un numero entre 1 y 5" });
+      .json({ error: "Debes ingresar un numero entre 1 y 5" });
   }
 };
 

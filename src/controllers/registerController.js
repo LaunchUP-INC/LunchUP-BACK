@@ -1,5 +1,6 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
+const { ValidationError } = require("../errors/customErrors");
 
 const registerUser = async (
   firstname,
@@ -11,7 +12,7 @@ const registerUser = async (
 ) => {
   const existingUser = await User.findOne({ where: { email } });
   if (existingUser) {
-    throw new Error("El usuario ya existe");
+    throw new ValidationError("El usuario ya existe");
   }
 
   const salt = 10;

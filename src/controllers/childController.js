@@ -1,4 +1,5 @@
 const { Child, User, School, Dish } = require("../db");
+const { ValidationError, NotFoundError } = require("../errors/customErrors");
 
 const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
   const user = await User.findByPk(id);
@@ -20,17 +21,17 @@ const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
 const putChild = async (id, firstname, lastname, gradeLevel, schoolId) => {
   const child = await Child.findOne({ where: { id } });
   if (!child) {
-    throw new Error(`Error al actualizar los datos del perfil: ${id}`);
+    throw new ValidationError(`Error al actualizar los datos del perfil`);
   }
   child.firstname = firstname || child.firstname;
   child.lastname = lastname || child.lastname;
   child.gradeLevel = gradeLevel || child.gradeLevel;
-  // child.SchoolId = schoolId || child.SchoolId; 
+  // child.SchoolId = schoolId || child.SchoolId;
   await child.save();
   return child;
 };
 
-const deleteChild = async (id) => {
+const deleteChild = async id => {
   const child = await Child.destroy({
     where: {
       id,
@@ -40,8 +41,8 @@ const deleteChild = async (id) => {
   return child;
 };
 
-const selectChild = async (id) => {
-  const child = await Child.findByPk(id, { 
+const selectChild = async id => {
+  const child = await Child.findByPk(id, {
     include: [
       {
         model: School,
@@ -54,19 +55,18 @@ const selectChild = async (id) => {
         required: false,
       },
     ],
-    attributes: { exclude: ["SchoolId"] 
-    }, 
+    attributes: { exclude: ["SchoolId"] },
   });
 
   if (!child) {
-    throw new Error (`No se encontró el comensal con ID: ${id}`);
+    throw new NotFoundError(`Comensal no encontrado`);
   }
 
   return child;
 };
 
-const selectAllChild = async (id) => {
-  const childs = await Child.findAll({ 
+const selectAllChild = async id => {
+  const childs = await Child.findAll({
     where: { UserId: id },
     include: [
       {
@@ -80,24 +80,22 @@ const selectAllChild = async (id) => {
         required: false,
       },
     ],
-    attributes: { exclude: ["SchoolId"] 
-    },
+    attributes: { exclude: ["SchoolId"] },
   });
 
   if (!childs.length) {
-    throw new Error ('No se encontraron comensales');
+    throw new NotFoundError("No se encontraron comensales");
   }
 
   return childs;
 };
 
 const markFavoriteDishes = async (id, dishIds) => {
-
   if (!Array.isArray(dishIds) || dishIds.length === 0) {
-    throw new Error("La lista de dishIds no es válida");
+    throw new NotFoundError("La lista de dishIds no es válida");
   }
 
-  const child = await Child.findByPk(id, { 
+  const child = await Child.findByPk(id, {
     include: [
       {
         model: School,
@@ -111,17 +109,18 @@ const markFavoriteDishes = async (id, dishIds) => {
         },
       },
     ],
-    attributes: { exclude: ["SchoolId"] 
-    }, 
+    attributes: { exclude: ["SchoolId"] },
   });
 
   if (!child) {
-    throw new Error (`No se encontró el comensal con ID: ${id}`);
+    throw new NotFoundError(`Comensal no encontrado`);
   }
 
   await child.setDishes(dishIds);
 
-  return { message: `Platos marcados como favoritos para el niño con ID ${id}` };
+  return {
+    message: `Platos marcados como favoritos para el niño con ID ${id}`,
+  };
 };
 
 module.exports = {
@@ -129,6 +128,6 @@ module.exports = {
   putChild,
   deleteChild,
   selectChild,
-  selectAllChild, 
-  markFavoriteDishes
+  selectAllChild,
+  markFavoriteDishes,
 };

@@ -42,7 +42,7 @@ const putUser = async (id, userData) => {
   user.telephone = telephone || user.telephone;
   user.email = email || user.email;
   user.password = password || user.password;
-  user.isAdmin = isAdmin || user.isAdmin;
+  user.isAdmin = isAdmin ? true : false;
 
   await user.save();
   return user;

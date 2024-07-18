@@ -24,7 +24,7 @@ const verifyToken = (req, res, next) => {
     const accessToken = req.headers.authorization;
 
     if (!accessToken) {
-      throw new ValidationError("Error al verificar el token");
+      throw new ValidationError('Error al verificar el token');
     } else {
       req.user = user;
       next();

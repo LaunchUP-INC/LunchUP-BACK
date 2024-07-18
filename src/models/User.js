@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 
-module.exports = (sequelize) => {
+module.exports = sequelize => {
   sequelize.define(
     "User",
     {
@@ -35,9 +35,14 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
+      banned: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       timestamps: false,
-    }
+    },
   );
 };

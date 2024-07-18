@@ -80,7 +80,7 @@ const populateReviews = async () => {
             });
             await newReview.setUser(user);
           } else {
-            console.error(`Usuario no encontrados para la Review`);
+            console.error(`Usuario no encontrado para la Review`);
           }
         })
       );

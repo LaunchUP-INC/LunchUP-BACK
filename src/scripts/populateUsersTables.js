@@ -100,8 +100,6 @@ const populateUsers = async () => {
           password,
           isAdmin,
         });
-
-        //console.log(newUser);
       }
     }
   } catch (error) {

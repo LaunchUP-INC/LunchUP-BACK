@@ -14,8 +14,8 @@ const startServer = async () => {
     await populateDishes();
     await populateSchools();
     await populateUsers();
-    await populateChildren();
     await populateReviews();
+    await populateChildren();
 
     server.listen(3001, () => {
       console.log("%s listening at http://localhost:3001", server.name);

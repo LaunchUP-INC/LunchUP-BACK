@@ -126,7 +126,7 @@ const populateChildren = async () => {
             await newChild.setSchool(school);
           } else {
             console.error(
-              `Usuario o escuela no encontrados para el niño: ${firstname} ${lastname}`
+              `Usuario o escuela no encontrada para el niño: ${firstname} ${lastname}`
             );
           }
         })

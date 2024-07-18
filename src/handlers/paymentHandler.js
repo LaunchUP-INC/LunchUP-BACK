@@ -18,8 +18,8 @@ const paymentHandler = async (req, res, next) => {
       })),
 
       back_urls: {
-        success: `${FRONT_URL}/home`,
-        failure: `${FRONT_URL}`,
+        success: `${FRONT_URL}/shopping`,
+        failure: `${FRONT_URL}/shopping`,
       },
       auto_return: "approved",
     };

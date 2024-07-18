@@ -1,4 +1,3 @@
-const { User } = require("../db");
 const { NotFoundError } = require("../errors/customErrors");
 const { User, Child, School } = require("../db");
 

@@ -3,7 +3,6 @@ const {
   checkUser,
 } = require("../controllers/registerController");
 const sendRegistrationEmail = require("../../brevoConfig.js");
-const { ValidationError } = require("../errors/customErrors");
 
 const registerHandler = async (req, res, next) => {
   const { firstname, lastname, telephone, email, password, isAdmin } = req.body;
@@ -27,13 +26,8 @@ const registerHandler = async (req, res, next) => {
 
 const checkUserHandler = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-      next(new ValidationError("Error al verificar el token"));
-    }
-
-    const token = authHeader.split(" ")[1];
-    const isRegistered = await checkUser(token);
+    const { email } = req.body;
+    const isRegistered = await checkUser(email);
 
     res.json({ isRegistered });
   } catch (error) {

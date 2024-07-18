@@ -1,7 +1,9 @@
 const { User } = require("../db");
 const bcrypt = require("bcrypt");
 const { ValidationError } = require("../errors/customErrors");
-const jwtDecode = require("jwt-decode");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { SECRET_KEY_TOKEN } = process.env;
 
 const registerUser = async (
   firstname,
@@ -31,10 +33,7 @@ const registerUser = async (
   return newUser;
 };
 
-const checkUser = async (token) => {
-  const decoded = jwtDecode(token);
-  const { email } = decoded;
-
+const checkUser = async (email) => {
   const user = await User.findOne({ where: { email } });
   return !!user;
 };
@@ -43,4 +42,6 @@ module.exports = {
   registerUser,
   checkUser
 }
+
+
 

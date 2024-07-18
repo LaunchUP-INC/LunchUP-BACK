@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
           len: [2, 300],
-          is: /^[a-zA-Z0-9,.](?:[a-zA-Z0-9,.\s]*[a-zA-Z0-9,.])?$/,
+          //is: /^[a-zA-Z0-9,.](?:[a-zA-Z0-9,.\s]*[a-zA-Z0-9,.])?$/,
         },
       },
 

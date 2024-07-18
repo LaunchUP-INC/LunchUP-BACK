@@ -24,11 +24,13 @@ const verifyToken = (req, res, next) => {
     const accessToken = req.headers.authorization;
 
     if (!accessToken) {
-      throw new ValidationError('Error al verificar el token');
-    } else {
-      req.user = user;
-      next();
+      throw new ValidationError('Error al verificar el token: No se proporcionó un token');
     }
+
+    // Verificar y decodificar el token
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+    req.user = decoded; // Agregar el usuario decodificado al objeto de solicitud
+    next();
   } catch (error) {
     next(error);
   }

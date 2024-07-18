@@ -1,9 +1,8 @@
 const { Router } = require("express");
 const loginHandler = require("../handlers/loginHandler");
-const { verifyToken } = require("../utils/jwt");
 
 const loginRouter = Router();
 
-loginRouter.post("/", verifyToken, loginHandler);
+loginRouter.post("/", loginHandler);
 
 module.exports = loginRouter;

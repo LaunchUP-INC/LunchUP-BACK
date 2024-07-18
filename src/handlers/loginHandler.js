@@ -1,16 +1,15 @@
 const { loginController } = require("../controllers/loginController");
-const { loginToken } = require("../utils/jwt");
 
 const loginHandler = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const user = await loginController(email, password);
+    const { access, token } = await loginController(email, password);
 
-    const token = loginToken(email);
-
-    res.header("authorization", token);
-    res.cookie("token", token, { httpOnly: true });
-    res.status(200).json({ username: req.user });
+    if (access) {
+      res.status(200).json({ access, token });
+    } else {
+      res.status(401).json({ access });
+    }
   } catch (error) {
     next(error);
   }

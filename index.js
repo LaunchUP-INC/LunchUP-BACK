@@ -9,7 +9,7 @@ const populateReviews = require("./src/scripts/populateReviewsTable.js");
 
 const startServer = async () => {
   try {
-    await conn.sync({ force: false });
+    await conn.sync({ alter: true });
     await populateMealTypes();
     await populateDishes();
     await populateSchools();

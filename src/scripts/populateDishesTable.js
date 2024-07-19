@@ -10,6 +10,7 @@ const populateDishes = async () => {
         images: [
           "https://gestion.pe/resizer/i5vGkdDtf5Hm87rWfJgyCvkwEyI=/1200x900/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/IOUUSANWTNDP7G3IJPGGO6NZOI.jpg",
         ],
+        isDeleted: false,
         mealTypes: [1, 4],
       },
       {
@@ -18,6 +19,7 @@ const populateDishes = async () => {
           "Ensalada fresca con pollo, lechuga, crutones y aderezo César.",
         price: 120,
         images: ["https://imag.bonviveur.com/ensalada-cesar-casera.jpg"],
+        isDeleted: false,
         mealTypes: [2, 3],
       },
       {
@@ -26,6 +28,7 @@ const populateDishes = async () => {
           "Empanadas rellenas de carne, cebolla, huevo duro y aceitunas, cocidas al horno.",
         price: 100,
         images: ["https://img.bekiacocina.com/cocina/0000/265-h.jpg"],
+        isDeleted: false,
         mealTypes: [1],
       },
       {
@@ -34,6 +37,7 @@ const populateDishes = async () => {
           "Milanesa de carne empanizada, cubierta con salsa de tomate, jamón y queso derretido.",
         price: 250,
         images: ["https://imag.bonviveur.com/milanesa-a-la-napolitana.jpg"],
+        isDeleted: false,
         mealTypes: [3, 4],
       },
       {
@@ -43,6 +47,7 @@ const populateDishes = async () => {
         images: [
           "https://www.unileverfoodsolutions.com.ar/dam/global-ufs/mcos/sla/argentina/calcmenu/recipes/AR-recipes/pack-shot-truth-visual/milanesas-de-peceto/main-header.jpg",
         ],
+        isDeleted: false,
         mealTypes: [1, 4],
       },
       {
@@ -52,6 +57,7 @@ const populateDishes = async () => {
         images: [
           "https://thriftandspice.com/wp-content/uploads/2022/09/milanesa-de-pollo.jpg",
         ],
+        isDeleted: false,
         mealTypes: [3, 4, 5],
       },
       {
@@ -62,6 +68,7 @@ const populateDishes = async () => {
         images: [
           "https://blogscdn.thehut.net/wp-content/uploads/sites/406/2018/07/26142315/1200x672_Quinoa-Salad_1200x672_acf_cropped.jpg",
         ],
+        isDeleted: false,
         mealTypes: [4],
       },
       {
@@ -72,6 +79,7 @@ const populateDishes = async () => {
         images: [
           "https://alicante.com.ar/wp-content/uploads/2022/06/87_receta.jpg",
         ],
+        isDeleted: false,
         mealTypes: [1],
       },
       {
@@ -82,6 +90,7 @@ const populateDishes = async () => {
         images: [
           "https://educacional.org.ar/wp-content/uploads/2022/09/WhatsApp-Image-2019-05-14-at-9.10.40-PM-1-scaled-1.jpeg",
         ],
+        isDeleted: false,
         mealTypes: [3],
       },
       {
@@ -92,6 +101,7 @@ const populateDishes = async () => {
         images: [
           "https://storage.googleapis.com/fitia-api-bucket/media/images/recipe_images/1002601.jpg",
         ],
+        isDeleted: false,
         mealTypes: [1],
       },
       {
@@ -102,6 +112,7 @@ const populateDishes = async () => {
         images: [
           "https://cocinemosjuntos.com.co/media/mageplaza/blog/post/r/e/recetas-faciles-para-preparar-sopa-de-verduras_1_.jpg",
         ],
+        isDeleted: false,
         mealTypes: [1, 2],
       },
     ];

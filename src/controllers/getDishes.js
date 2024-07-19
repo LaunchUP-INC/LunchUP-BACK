@@ -4,7 +4,7 @@ const { Op } = require("sequelize");
 const { DatabaseError } = require("../errors/customErrors");
 
 const getDish = async (search, filterMealTypeBy, orderBy) => {
-  let where = {};
+  let where = { isDeleted: false };
   let order = [];
 
   if (search) {

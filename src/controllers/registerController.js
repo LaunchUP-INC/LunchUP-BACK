@@ -12,6 +12,7 @@ const registerUser = async (
   email,
   password,
   isAdmin,
+  banned
 ) => {
   const existingUser = await User.findOne({ where: { email } });
   if (existingUser) {
@@ -28,6 +29,7 @@ const registerUser = async (
     email,
     password: hash,
     isAdmin,
+    banned,
   });
 
   return newUser;
@@ -40,8 +42,5 @@ const checkUser = async (email) => {
 
 module.exports = {
   registerUser,
-  checkUser
-}
-
-
-
+  checkUser,
+};

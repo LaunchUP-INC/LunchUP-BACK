@@ -10,8 +10,12 @@ const loginController = async (email, password) => {
 
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) throw new ValidationError("Contraseña incorrecta");
+  if (!user && !passwordMatch)
+    throw new ValidationError("Debe ingresar los datos requeridos");
 
-  const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY_TOKEN, { expiresIn: '1h' });
+  const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY_TOKEN, {
+    expiresIn: "1h",
+  });
 
   return { access: true, token };
 };

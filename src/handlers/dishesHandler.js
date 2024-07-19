@@ -1,7 +1,7 @@
 const postDish = require("../controllers/postDish");
 const { getDish } = require("../controllers/getDishes");
 const getDishById = require("../controllers/getDishById");
-const { deleteDish } = require("../controllers/deleteDish");
+const { deleteDish, deleteDishLogically } = require("../controllers/deleteDish");
 const { putDish } = require("../controllers/putDish");
 const { getStockDish, updateStock } = require("../controllers/stockController");
 const { handleDishesImages } = require("../utils");
@@ -94,11 +94,21 @@ const getDetailHandler = async (req, res, next) => {
   }
 };
 
-const deleteDishesHandler = async (req, res, next) => {
+const deleteDishHandler = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const dishDelete = await deleteDish(id);
-    res.status(200).json("Se eliminó el plato con el ID: " + id);
+    const result = await deleteDish(id);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteDishLogicallyHandler = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const result = await deleteDishLogically(id);
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -108,6 +118,7 @@ module.exports = {
   createDishesHandler,
   getDishesHandler,
   getDetailHandler,
-  deleteDishesHandler,
+  deleteDishHandler,
+  deleteDishLogicallyHandler,
   putDishesHandler,
 };

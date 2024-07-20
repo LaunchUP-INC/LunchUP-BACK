@@ -13,7 +13,6 @@ const getStockHandler = async (req, res) => {
 const putStockHandler  = async (req, res) => {
   const { id } = req.params;
   const { quantity } = req.body;
-
   try {
     const updatedStock = await updateStock(id, quantity);
     res.status(200).json({ stock: updatedStock });

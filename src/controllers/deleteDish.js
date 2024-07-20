@@ -13,7 +13,7 @@ const deleteDish = async (id) => {
 const deleteDishLogically = async (id) => {
   const dish = await Dish.findByPk(id);
   if (!dish) {
-    throw new Error('Plato no encontrado');
+    throw new NotFoundError('Plato no encontrado');
   }
   dish.isDeleted = true;
   await dish.save();

@@ -37,8 +37,8 @@ const paymentHandler = async (req, res) => {
         currency_id: "ARS",
       })),
       back_urls: {
-        success: `${FRONT_URL}/shopping`,
-        failure: `${FRONT_URL}/shopping`,
+        success: `${FRONT_URL}/payment-success`,
+        failure: `${FRONT_URL}/payment-error`,
       },
       auto_return: "approved",
     };

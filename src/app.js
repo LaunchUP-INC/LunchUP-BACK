@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
 const cors = require("cors");
-const middlewareError = require("./middlewares/errors.js");
+const { middlewareError } = require("./middlewares/errors.js");
 const { NotFoundError } = require("./errors/customErrors");
 
 require("./db.js");

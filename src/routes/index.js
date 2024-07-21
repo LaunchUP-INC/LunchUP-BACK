@@ -9,6 +9,7 @@ const payNotificationRouter = require("../routes/payNotificationRouter");
 const schoolRouter = require("./schoolRouter");
 const reviewsRouter = require("../routes/reviewsRouter");
 const ratingRouter = require("../routes/ratingRouter");
+const adminRouter = require("./adminRouter");
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use("/payNotificationRouter", payNotificationRouter);
 router.use("/school", schoolRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/rating", ratingRouter);
+router.use("/admin", adminRouter);
 
 module.exports = router;

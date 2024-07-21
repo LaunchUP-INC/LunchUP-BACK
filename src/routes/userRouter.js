@@ -4,6 +4,7 @@ const {
   getUserHandler,
   putUserHandler,
   deleteUserHandler,
+  // getUserAdminHandler,
 } = require("../handlers/userHandler");
 const {
   createChildHandler,
@@ -19,6 +20,7 @@ const userRouter = Router();
 
 userRouter.get("/", allUserHandler);
 userRouter.get("/:id", getUserHandler);
+// userRouter.get("/asd", getUserAdminHandler);
 userRouter.put("/:id", putUserHandler);
 userRouter.delete("/:id", deleteUserHandler);
 userRouter.post("/:id/child", createChildHandler);

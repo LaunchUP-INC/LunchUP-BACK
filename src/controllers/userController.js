@@ -1,16 +1,23 @@
-const { NotFoundError } = require("../errors/customErrors");
+const { NotFoundError, ForbiddenError } = require("../errors/customErrors");
 const { User, Child, School } = require("../db");
 
 const getAllUser = async () => {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    attributes: {
+      exclude: ["password"],
+    },
+  });
   if (!users) {
     throw new NotFoundError(`Error al obtener los usuarios`);
   }
   return users;
 };
 
-const getUser = async (email) => {
+const getUser = async email => {
   const user = await User.findOne({
+    attributes: {
+      exclude: ["password"],
+    },
     where: { email },
     include: [
       {
@@ -61,9 +68,27 @@ const deleteUser = async id => {
   return user;
 };
 
+const getUsersAdmin = async id => {
+  const users = await User.findAll({
+    attributes: {
+      exclude: ["password"],
+    },
+    where: {
+      isAdmin: true,
+    },
+  });
+
+  if (!users) {
+    throw new ForbiddenError(`Error al obtener los datos del administrador`);
+  }
+
+  return users;
+};
+
 module.exports = {
   getAllUser,
   getUser,
   putUser,
   deleteUser,
+  getUsersAdmin,
 };

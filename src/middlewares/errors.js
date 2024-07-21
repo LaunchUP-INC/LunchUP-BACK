@@ -16,4 +16,4 @@ const middlewareError = (error, req, res, next) => {
   }
 };
 
-module.exports = middlewareError;
+module.exports = { middlewareError };

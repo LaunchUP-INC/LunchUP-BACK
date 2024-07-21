@@ -3,6 +3,7 @@ const {
   deleteUser,
   getAllUser,
   getUser,
+  getUsersAdmin,
 } = require("../controllers/userController");
 
 const allUserHandler = async (req, res, next) => {
@@ -19,6 +20,15 @@ const getUserHandler = async (req, res, next) => {
   try {
     const users = await getUser(email);
     return res.status(200).json({ users });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getUserAdminHandler = async (req, res, next) => {
+  try {
+    const usersAdmin = await getUsersAdmin();
+    res.status(200).json({ usersAdmin });
   } catch (error) {
     next(error);
   }
@@ -50,4 +60,5 @@ module.exports = {
   getUserHandler,
   putUserHandler,
   deleteUserHandler,
+  getUserAdminHandler,
 };

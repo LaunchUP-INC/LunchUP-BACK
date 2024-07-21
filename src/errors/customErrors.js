@@ -27,9 +27,16 @@ class DatabaseError extends AppError {
   }
 }
 
+class ForbiddenError extends AppError {
+  constructor(message = "Access Error") {
+    super(message, 403);
+  }
+}
+
 module.exports = {
   AppError,
   NotFoundError,
   ValidationError,
   DatabaseError,
+  ForbiddenError,
 };

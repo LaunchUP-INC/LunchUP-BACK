@@ -9,8 +9,9 @@ const getAllUser = async () => {
   return users;
 };
 
-const getUser = async id => {
-  const user = await User.findByPk(id, {
+const getUser = async (email) => {
+  const user = await User.findOne({
+    where: { email },
     include: [
       {
         model: Child,

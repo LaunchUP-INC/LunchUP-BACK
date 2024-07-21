@@ -18,7 +18,7 @@ const { createReviewsHandler } = require("../handlers/reviewsHandler");
 const userRouter = Router();
 
 userRouter.get("/", allUserHandler);
-userRouter.get("/:id", getUserHandler);
+userRouter.get("/:email", getUserHandler);
 userRouter.put("/:id", putUserHandler);
 userRouter.delete("/:id", deleteUserHandler);
 userRouter.post("/:id/child", createChildHandler);

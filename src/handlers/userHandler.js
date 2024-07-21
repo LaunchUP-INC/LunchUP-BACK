@@ -15,9 +15,9 @@ const allUserHandler = async (req, res, next) => {
 };
 
 const getUserHandler = async (req, res, next) => {
-  const { id } = req.params;
+  const { email } = req.params;
   try {
-    const users = await getUser(id);
+    const users = await getUser(email);
     return res.status(200).json({ users });
   } catch (error) {
     next(error);

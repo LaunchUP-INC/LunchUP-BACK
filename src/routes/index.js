@@ -18,8 +18,8 @@ router.use("/register", registerRouter);
 router.use("/login", loginRouter);
 router.use("/user", userRouter);
 router.use("/meal", mealTypesRouter);
-router.use("/payment", paymentRouter);
-router.use("/payNotificationRouter", payNotificationRouter);
+router.use("/payment", paymentRouter); //preferencias
+router.use("/payNotification", payNotificationRouter); //notificaciones
 router.use("/school", schoolRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/rating", ratingRouter);

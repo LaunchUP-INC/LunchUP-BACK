@@ -27,6 +27,20 @@ const paymentHandler = async (req, res) => {
       dish.stock -= item.quantity;
       await dish.save();
     }
+    // SI PAGO ESTA OK
+
+    if (paymentResult.body.status === "approved") {
+      // Si el pago es aprobado, el stock se mantiene descontado
+      return res.sendStatus(200);
+    } else {
+      // Si el pago no es aprobado, restaura el stock
+      const items = paymentResult.body.additional_info.items;
+      for (let item of items) {
+        const dish = await Dish.findByPk(item.id);
+        dish.stock += item.quantity;
+        await dish.save();
+      }
+    }
 
     // Crear la preferencia de pago
     const body = {
@@ -41,10 +55,12 @@ const paymentHandler = async (req, res) => {
         failure: `${FRONT_URL}/payment-error`,
       },
       auto_return: "approved",
+      notification_url: "https://lunchup-back.onrender.com/payNotification",
     };
 
     const preference = new Preference(client);
     const result = await preference.create({ body });
+    console.log("aca esta el resultado", result, result.id);
 
     // Responder con el ID de la preferencia creada
     res.json({
@@ -56,4 +72,27 @@ const paymentHandler = async (req, res) => {
   }
 };
 
-module.exports = { paymentHandler };
+const paymentNotificationHandler = async (req, res) => {
+  const paymentId = req.query.id;
+
+  try {
+    const response = await fetch(
+      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      {
+        method: `GET`,
+        headers: {
+          Authorization: `Bearer ${client.accessToken}`,
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+    }
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(`Error:`, error);
+    res.sendStatus(500);
+  }
+};
+module.exports = { paymentHandler, paymentNotificationHandler };

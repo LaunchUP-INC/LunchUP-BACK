@@ -28,5 +28,5 @@ const updateStock = async (id, quantity) => {
 
 module.exports = {
   getStockDish,
-  updateStock
-}
+  updateStock,
+};

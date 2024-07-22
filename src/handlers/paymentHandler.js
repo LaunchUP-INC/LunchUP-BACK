@@ -12,35 +12,35 @@ const paymentHandler = async (req, res) => {
     const items = req.body;
 
     // Verificar stock disponible
-    for (let item of items) {
-      const dish = await Dish.findByPk(item.id);
-      if (!dish || dish.stock < item.quantity) {
-        return res
-          .status(400)
-          .json({ error: `Stock insuficiente para el plato ${item.title}` });
-      }
-    }
+    // for (let item of items) {
+    //   const dish = await Dish.findByPk(item.id);
+    //   if (!dish || dish.stock < item.quantity) {
+    //     return res
+    //       .status(400)
+    //       .json({ error: `Stock insuficiente para el plato ${item.title}` });
+    //   }
+    // }
 
     // Descontar temporalmente el stock
-    for (let item of items) {
-      const dish = await Dish.findByPk(item.id);
-      dish.stock -= item.quantity;
-      await dish.save();
-    }
+    // for (let item of items) {
+    //   const dish = await Dish.findByPk(item.id);
+    //   dish.stock -= item.quantity;
+    //   await dish.save();
+    // }
     // SI PAGO ESTA OK
 
-    if (paymentResult.body.status === "approved") {
-      // Si el pago es aprobado, el stock se mantiene descontado
-      return res.sendStatus(200);
-    } else {
-      // Si el pago no es aprobado, restaura el stock
-      const items = paymentResult.body.additional_info.items;
-      for (let item of items) {
-        const dish = await Dish.findByPk(item.id);
-        dish.stock += item.quantity;
-        await dish.save();
-      }
-    }
+    // if (paymentResult.body.status === "approved") {
+    //   // Si el pago es aprobado, el stock se mantiene descontado
+    //   return res.sendStatus(200);
+    // } else {
+    //   // Si el pago no es aprobado, restaura el stock
+    //   const items = paymentResult.body.additional_info.items;
+    //   for (let item of items) {
+    //     const dish = await Dish.findByPk(item.id);
+    //     dish.stock += item.quantity;
+    //     await dish.save();
+    //   }
+    // }
 
     // Crear la preferencia de pago
     const body = {

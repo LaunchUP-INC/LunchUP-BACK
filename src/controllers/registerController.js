@@ -11,7 +11,6 @@ const registerUser = async (
   telephone,
   email,
   password,
-  isAdmin,
   banned
 ) => {
   const existingUser = await User.findOne({ where: { email } });
@@ -28,7 +27,6 @@ const registerUser = async (
     telephone,
     email,
     password: hash,
-    isAdmin,
     banned,
   });
 

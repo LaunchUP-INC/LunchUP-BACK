@@ -9,15 +9,19 @@ const client = new MercadoPagoConfig({
 
 const paymentHandler = async (req, res) => {
   try {
+    const userId = req.params.id;
+    console.log(userId, "ID del usuario");
     const items = req.body;
-
+    console.log("ESTOS SON LOS ITEMS", items);
     // Verificar stock disponible
     for (let item of items) {
+      console.log("ESTE ES EL ID DEL DISH QUE QUIERO COMPRAR", item.id);
       const dish = await Dish.findByPk(item.id);
+      console.log("ESTE ES EL DISH QUE QUIERO COMPRAR", dish);
       if (!dish || dish.stock < item.quantity) {
         return res
           .status(400)
-          .json({ error: `Stock insuficiente para el plato ${item.title}` });
+          .json({ error: "Stock insuficiente para el plato ${item.title}" });
       }
     }
 
@@ -26,20 +30,6 @@ const paymentHandler = async (req, res) => {
       const dish = await Dish.findByPk(item.id);
       dish.stock -= item.quantity;
       await dish.save();
-    }
-    // SI PAGO ESTA OK
-
-    if (paymentResult.body.status === "approved") {
-      // Si el pago es aprobado, el stock se mantiene descontado
-      return res.sendStatus(200);
-    } else {
-      // Si el pago no es aprobado, restaura el stock
-      const items = paymentResult.body.additional_info.items;
-      for (let item of items) {
-        const dish = await Dish.findByPk(item.id);
-        dish.stock += item.quantity;
-        await dish.save();
-      }
     }
 
     // Crear la preferencia de pago
@@ -72,27 +62,4 @@ const paymentHandler = async (req, res) => {
   }
 };
 
-const paymentNotificationHandler = async (req, res) => {
-  const paymentId = req.query.id;
-
-  try {
-    const response = await fetch(
-      `https://api.mercadopago.com/v1/payments/${paymentId}`,
-      {
-        method: `GET`,
-        headers: {
-          Authorization: `Bearer ${client.accessToken}`,
-        },
-      }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-    }
-    res.sendStatus(200);
-  } catch (error) {
-    console.error(`Error:`, error);
-    res.sendStatus(500);
-  }
-};
-module.exports = { paymentHandler, paymentNotificationHandler };
+module.exports = { paymentHandler };

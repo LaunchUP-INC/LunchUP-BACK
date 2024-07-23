@@ -3,6 +3,6 @@ const { paymentHandler } = require("../handlers/paymentHandler");
 
 const paymentRouter = Router();
 
-paymentRouter.post("/", paymentHandler);
+paymentRouter.post("/:id", paymentHandler);
 
 module.exports = paymentRouter;

@@ -34,7 +34,7 @@ const paymentHandler = async (req, res) => {
     }
 
     const newOrder = await Order.create({
-      userId: id,
+      UserId: id,
       items,
       totalPrice: totalAmount,
       status: 'pending',

@@ -1,4 +1,5 @@
 const { Dish, Order } = require("../db");
+const { ACCES_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
   const paymentId = req.query["data.id"]; // Mercado Pago envía el id del pago en el campo 'data.id'

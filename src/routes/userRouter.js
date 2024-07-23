@@ -14,7 +14,8 @@ const {
   favoriteDishesHandler,
 } = require("../handlers/childHandler");
 const { createReviewsHandler } = require("../handlers/reviewsHandler");
-//const { paymentHandler } = require("../handlers/paymentHandler");
+const { paymentHandler } = require("../handlers/paymentHandler");
+const { paymentNotificationHandler } = require("../handlers/paymentNotificationHandler");
 
 const userRouter = Router();
 
@@ -29,6 +30,6 @@ userRouter.delete("/child/:id", deleteChildHandler);
 userRouter.get("/child/:id", selectChildHandler);
 userRouter.post("/:id/reviews", createReviewsHandler);
 userRouter.put("/child/:id/favorite-dishes", favoriteDishesHandler);
-//userRouter.post("/:id/payment", paymentHandler);
+userRouter.post("/:id/payment", paymentHandler);
 
 module.exports = userRouter;

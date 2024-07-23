@@ -1,7 +1,7 @@
 const { MercadoPagoConfig, Preference } = require("mercadopago");
 require("dotenv").config();
 const { ACCESS_TOKEN_MP, FRONT_URL } = process.env;
-const { Dish } = require("../db");
+const { Dish, Order } = require("../db");
 
 const client = new MercadoPagoConfig({
   accessToken: ACCESS_TOKEN_MP,
@@ -9,10 +9,10 @@ const client = new MercadoPagoConfig({
 
 const paymentHandler = async (req, res) => {
   try {
-    const userId = req.params.id;
-    console.log(userId, "ID del usuario");
-    const items = req.body;
-    console.log("ESTOS SON LOS ITEMS", items);
+    const { id } = req.params;
+    console.log(id, "ID del usuario");
+    const { items, totalAmount } = req.body;
+    console.log("ESTOS SON LOS ITEMS", items, totalAmount);
     // Verificar stock disponible
 
     for (let item of items) {
@@ -33,6 +33,13 @@ const paymentHandler = async (req, res) => {
       await dish.save();
     }
 
+    const newOrder = await Order.create({
+      userId: id,
+      items,
+      totalPrice: totalAmount,
+      status: 'pending',
+    })
+
     // Crear la preferencia de pago
     const body = {
       items: items.map((item) => ({
@@ -47,6 +54,7 @@ const paymentHandler = async (req, res) => {
       },
       auto_return: "approved",
       notification_url: "https://lunchup-back.onrender.com/payNotification",
+      external_reference: newOrder.id,
     };
 
     const preference = new Preference(client);
@@ -56,6 +64,7 @@ const paymentHandler = async (req, res) => {
     // Responder con el ID de la preferencia creada
     res.json({
       id: result.id,
+      orderId: newOrder.id,
     });
   } catch (error) {
     console.error("Error creating payment preference:", error);

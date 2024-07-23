@@ -1,5 +1,4 @@
-const { Dish } = require("../db");
-const mercadopago = require("mercadopago");
+const { Dish, Order } = require("../db");
 
 const paymentNotificationHandler = async (req, res) => {
   const paymentId = req.query["data.id"]; // Mercado Pago envía el id del pago en el campo 'data.id'
@@ -18,12 +17,17 @@ const paymentNotificationHandler = async (req, res) => {
     if (response.ok) {
       const paymentData = await response.json();
       const items = paymentData.additional_info.items;
+      const orderId = paymentData.external_reference;
+
+      const order = await Order.findByPk(orderId);
 
       if (paymentData.status === "approved") {
         // Si el pago es aprobado, el stock se mantiene descontado
+        order.status = 'approved';
         console.log("Pago aprobado, mantener stock descontado.");
       } else {
         // Si el pago no es aprobado, restaurar el stock
+        order.status = 'rejected';
         for (let item of items) {
           const dish = await Dish.findByPk(item.id);
           if (dish) {

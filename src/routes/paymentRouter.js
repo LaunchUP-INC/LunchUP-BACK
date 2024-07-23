@@ -1,8 +1,8 @@
-const { Router } = require("express");
-const { paymentHandler } = require("../handlers/paymentHandler");
+// const { Router } = require("express");
+// const { paymentHandler } = require("../handlers/paymentHandler");
 
-const paymentRouter = Router();
+// const paymentRouter = Router();
 
-paymentRouter.post("/:id", paymentHandler);
+// paymentRouter.post("/:id", paymentHandler);
 
-module.exports = paymentRouter;
+// module.exports = paymentRouter;

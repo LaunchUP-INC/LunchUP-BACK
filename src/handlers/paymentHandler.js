@@ -22,7 +22,7 @@ const paymentHandler = async (req, res) => {
       if (!dish || dish.stock < item.quantity) {
         return res
           .status(400)
-          .json({ error: "Stock insuficiente para el plato ${item.title}" });
+          .json({ error: `Stock insuficiente para el plato ${item.title}` });
       }
     }
 

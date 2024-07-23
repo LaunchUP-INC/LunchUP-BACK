@@ -1,22 +1,33 @@
 const { Dish, Order } = require("../db");
+require("dotenv").config();
+const axios = require("axios");
+
 const { ACCES_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
   const paymentId = req.query["data.id"]; // Mercado Pago envía el id del pago en el campo 'data.id'
-
+  console.log("ESTE ES EL PAYMENTId", paymentId);
   try {
-    const response = await fetch(
+    // const response = await fetch(
+    //   `https://api.mercadopago.com/v1/payments/${paymentId}`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       Authorization: `Bearer ${ACCES_TOKEN_MP}`,
+    //     },
+    //   }
+    // );
+
+    const response = await axios.get(
       `https://api.mercadopago.com/v1/payments/${paymentId}`,
       {
-        method: GET,
         headers: {
           Authorization: `Bearer ${ACCES_TOKEN_MP}`,
         },
       }
     );
 
-    if (response.ok) {
-      const paymentData = await response.json();
+      const paymentData = await response.data;
       const items = paymentData.additional_info.items;
       const orderId = paymentData.external_reference;
 
@@ -38,8 +49,9 @@ const paymentNotificationHandler = async (req, res) => {
         }
         console.log("Pago no aprobado, stock restaurado.");
       }
-    }
 
+      await order.save();
+    
     res.sendStatus(200);
   } catch (error) {
     console.error("Error fetching payment info:", error);

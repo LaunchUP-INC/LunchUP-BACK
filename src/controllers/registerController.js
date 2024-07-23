@@ -11,7 +11,6 @@ const registerUser = async (
   telephone,
   email,
   password,
-  isAdmin,
   banned
 ) => {
   const existingUser = await User.findOne({ where: { email } });
@@ -28,7 +27,6 @@ const registerUser = async (
     telephone,
     email,
     password: hash,
-    isAdmin,
     banned,
   });
 
@@ -37,7 +35,15 @@ const registerUser = async (
 
 const checkUser = async (email) => {
   const user = await User.findOne({ where: { email } });
-  return !!user;
+
+  if (user) {
+    const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY_TOKEN, {
+      expiresIn: "1h",
+    });
+    return { access: !! user, token };
+  } else {
+    return { access: !!user }
+  }
 };
 
 module.exports = {

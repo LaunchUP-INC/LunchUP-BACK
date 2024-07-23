@@ -15,7 +15,7 @@ const validateDish = (req, res, next) => {
 };
 
 const validateUser = (req, res, next) => {
-  const { firstname, lastname, telephone, email, password, isAdmin } = req.body;
+  const { firstname, lastname, telephone, email, password } = req.body;
 
   if (!firstname || !lastname || !telephone || !email || !password) {
     next(new ValidationError("Todos los campos son obligatorios"));
@@ -58,10 +58,6 @@ const validateUser = (req, res, next) => {
         "La contraseña debe contener al menos un número, una letra mayúscula, una letra minúscula y un caracter especial",
       ),
     );
-  }
-
-  if (typeof isAdmin !== "boolean") {
-    next(new ValidationError(`El campo "isAdmin" debe ser un booleano`));
   }
 
   next();

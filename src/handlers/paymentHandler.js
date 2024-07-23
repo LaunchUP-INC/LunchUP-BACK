@@ -14,6 +14,7 @@ const paymentHandler = async (req, res) => {
     const items = req.body;
     console.log("ESTOS SON LOS ITEMS", items);
     // Verificar stock disponible
+
     for (let item of items) {
       console.log("ESTE ES EL ID DEL DISH QUE QUIERO COMPRAR", item.id);
       const dish = await Dish.findByPk(item.id);

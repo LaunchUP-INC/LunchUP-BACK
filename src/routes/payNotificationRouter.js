@@ -1,8 +1,10 @@
 const { Router } = require("express");
-const { paymentNotificationHandler } = require("../handlers/paymentHandler");
+const {
+  paymentNotificationHandler,
+} = require("../handlers/paymentNotificationHandler");
 
 const payNotificationRouter = Router();
 
-payNotificationRouter.post("/", paymentNotificationHandler); //
+payNotificationRouter.post("/", paymentNotificationHandler);
 
 module.exports = payNotificationRouter;

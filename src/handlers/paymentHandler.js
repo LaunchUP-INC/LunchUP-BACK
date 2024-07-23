@@ -22,7 +22,7 @@ const paymentHandler = async (req, res) => {
       if (!dish || dish.stock < item.quantity) {
         return res
           .status(400)
-          .json({ error: "Stock insuficiente para el plato ${item.title}" });
+          .json({ error: `Stock insuficiente para el plato ${item.title}` });
       }
     }
 
@@ -37,12 +37,12 @@ const paymentHandler = async (req, res) => {
       UserId: id,
       items,
       totalPrice: totalAmount,
-      status: 'pending',
-    })
+      status: "pending",
+    });
 
     // Crear la preferencia de pago
     const body = {
-      items: items.map((item) => ({
+      items: items.map(item => ({
         title: item.title,
         quantity: Number(item.quantity),
         unit_price: Number(item.unit_price),

@@ -15,7 +15,7 @@ const deleteDishLogically = async (id) => {
   if (!dish) {
     throw new NotFoundError('Plato no encontrado');
   }
-  dish.isDeleted = true;
+  dish.isDeleted = !dish.isDeleted;
   await dish.save();
   return { message: 'Plato eliminado lógicamente' };
 };

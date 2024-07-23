@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { Dish, Order } = require("../db");
 require("dotenv").config();
 const axios = require("axios");
@@ -24,7 +25,7 @@ const paymentNotificationHandler = async (req, res) => {
         headers: {
           Authorization: `Bearer ${ACCES_TOKEN_MP}`,
         },
-      }
+      },
     );
 
       const paymentData = await response.data;
@@ -35,11 +36,11 @@ const paymentNotificationHandler = async (req, res) => {
 
       if (paymentData.status === "approved") {
         // Si el pago es aprobado, el stock se mantiene descontado
-        order.status = 'approved';
+        order.status = "approved";
         console.log("Pago aprobado, mantener stock descontado.");
       } else {
         // Si el pago no es aprobado, restaurar el stock
-        order.status = 'rejected';
+        order.status = "rejected";
         for (let item of items) {
           const dish = await Dish.findByPk(item.id);
           if (dish) {

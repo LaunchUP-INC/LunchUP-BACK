@@ -37,12 +37,12 @@ const paymentHandler = async (req, res) => {
       UserId: id,
       items,
       totalPrice: totalAmount,
-      status: 'pending',
-    })
+      status: "pending",
+    });
 
     // Crear la preferencia de pago
     const body = {
-      items: items.map((item) => ({
+      items: items.map(item => ({
         title: item.title,
         quantity: Number(item.quantity),
         unit_price: Number(item.unit_price),

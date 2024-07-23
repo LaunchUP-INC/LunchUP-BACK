@@ -6,6 +6,20 @@ const axios = require("axios");
 const { ACCES_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
+  if (req.method === "POST") { 
+    let body = ""; 
+    req.on("data", chunk => {  
+      body += chunk.toString();
+    });
+    req.on("end", () => {  
+      console.log(body, "webhook response"); 
+      res.end("ok");
+    });
+  }
+  return res.status(200); 
+}
+
+const _paymentNotificationHandler = async (req, res) => {
   const paymentId = req.query["data.id"]; // Mercado Pago envía el id del pago en el campo 'data.id'
   console.log("ESTE ES EL PAYMENTId", paymentId);
   try {

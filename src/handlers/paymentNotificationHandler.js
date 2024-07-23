@@ -6,16 +6,7 @@ const axios = require("axios");
 const { ACCES_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
-  if (req.method === "POST") { 
-    let body = ""; 
-    req.on("data", chunk => {  
-      body += chunk.toString();
-    });
-    req.on("end", () => {  
-      console.log(body, "webhook response"); 
-      res.end("ok");
-    });
-  }
+  console.log("=================", req.query)
   return res.status(200); 
 }
 

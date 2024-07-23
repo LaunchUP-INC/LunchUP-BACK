@@ -39,7 +39,8 @@ const getUser = async email => {
 };
 
 const putUser = async (id, userData) => {
-  const { firstname, lastname, telephone, email, password, isAdmin, banned } = userData;
+  const { firstname, lastname, telephone, email, password, isAdmin, banned } =
+    userData;
   const user = await User.findByPk(id);
   if (!user) {
     throw new NotFoundError(`Usuario no encontrado`);
@@ -51,7 +52,7 @@ const putUser = async (id, userData) => {
   user.email = email || user.email;
   user.password = password || user.password;
   user.isAdmin = isAdmin ? true : false;
-  user.banned = banned || user.banned;
+  user.banned = banned ? true : false;
 
   await user.save();
   return user;

@@ -6,18 +6,24 @@ const axios = require("axios");
 const { ACCES_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
-  console.log("=================", req.query["data.id"])
-
-  const response = await axios.get(
-    `https://api.mercadopago.com/v1/payments/${req.query["data.id"]}`,
-    {
-      headers: {
-        Authorization: `Bearer ${ACCES_TOKEN_MP}`,
-      },
-    },
-  );
-
-  console.log("###########", response.data);
+  console.log("ENTRO AL HANDLER")
+  if (req.query["data.id"]) {
+    try {
+      const response = await axios.get(
+        `https://api.mercadopago.com/v1/payments/${req.query["data.id"]}`,
+        {
+          headers: {
+            Authorization: `Bearer ${ACCES_TOKEN_MP}`,
+          },
+        },
+      );
+      console.log(response.data)
+    } catch(e) {
+      console.log("ERRRRROR", e)
+    }
+  } else {
+    console.log("NO HAY DATA.ID")
+  }
 
   return res.status(200); 
 }

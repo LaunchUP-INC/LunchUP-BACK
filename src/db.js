@@ -61,5 +61,6 @@ module.exports = {
   School,
   Review,
   Rating,
+  Order,
   conn: sequelize,
 };

@@ -7,7 +7,7 @@ const { ACCESS_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
   const paymentId = req.query["data.id"]; // Mercado Pago envía el id del pago en el campo 'data.id'
-  console.log("ESTE ES EL PAYMENTId", paymentId);
+
   if (paymentId) {
     try {
       const response = await axios.get(
@@ -25,7 +25,9 @@ const paymentNotificationHandler = async (req, res) => {
   
         const order = await Order.findByPk(orderId);
 
-        console.log(JSON.stringify(items))
+        console.log("orderID", orderId)
+        console.log("order", order)
+        // [{"category_id":null,"description":null,"id":"4","picture_url":null,"quantity":"1","title":"Milanesa a la napolitana","unit_price":"250"}]
   
         if (paymentData.status === "approved") {
           // Si el pago es aprobado, el stock se mantiene descontado
@@ -35,9 +37,9 @@ const paymentNotificationHandler = async (req, res) => {
           // Si el pago no es aprobado, restaurar el stock
           order.status = "rejected";
           for (let item of items) {
-            const dish = await Dish.findByPk(item.id);
+            const dish = await Dish.findByPk(parseInt(item.id));
             if (dish) {
-              dish.stock += item.quantity;
+              dish.stock += parseInt(item.quantity);
               await dish.save();
             }
           }

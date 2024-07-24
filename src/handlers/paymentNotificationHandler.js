@@ -24,10 +24,6 @@ const paymentNotificationHandler = async (req, res) => {
         const orderId = paymentData.external_reference;
   
         const order = await Order.findByPk(orderId);
-
-        console.log("orderID", orderId)
-        console.log("order", order)
-        // [{"category_id":null,"description":null,"id":"4","picture_url":null,"quantity":"1","title":"Milanesa a la napolitana","unit_price":"250"}]
   
         if (paymentData.status === "approved") {
           // Si el pago es aprobado, el stock se mantiene descontado

@@ -11,14 +11,14 @@ const { ValidationError, DatabaseError } = require("../errors/customErrors");
 
 const createChildHandler = async (req, res, next) => {
   const { id } = req.params;
-  const { firstname, lastname, gradeLevel, schoolId } = req.body;
+  const { firstname, lastname, gradeLevel, SchoolId } = req.body;
   try {
     const child = await createChild(
       firstname,
       lastname,
       gradeLevel,
       id,
-      schoolId,
+      SchoolId
     );
     res.status(200).json({ child });
   } catch (error) {
@@ -32,9 +32,9 @@ const createChildHandler = async (req, res, next) => {
 
 const putChildHandler = async (req, res, next) => {
   const { id } = req.params;
-  const { firstname, lastname, gradeLevel } = req.body;
+  const { firstname, lastname, gradeLevel, SchoolId } = req.body;
   try {
-    const child = await putChild(id, firstname, lastname, gradeLevel);
+    const child = await putChild(id, firstname, lastname, gradeLevel, SchoolId);
     res.status(200).json({ child });
   } catch (error) {
     next(error);

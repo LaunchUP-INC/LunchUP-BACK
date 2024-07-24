@@ -1,7 +1,7 @@
 const { Child, User, School, Dish } = require("../db");
 const { NotFoundError, DatabaseError } = require("../errors/customErrors");
 
-const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
+const createChild = async (firstname, lastname, gradeLevel, id, SchoolId) => {
   const user = await User.findByPk(id);
 
   const newChild = await Child.create({
@@ -11,14 +11,14 @@ const createChild = async (firstname, lastname, gradeLevel, id, schoolId) => {
     UserId: user.id,
   });
 
-  const school = await School.findByPk(schoolId);
+  const school = await School.findByPk(SchoolId);
 
   newChild.setSchool(school);
 
   return newChild;
 };
 
-const putChild = async (id, firstname, lastname, gradeLevel, schoolId) => {
+const putChild = async (id, firstname, lastname, gradeLevel, SchoolId) => {
   const child = await Child.findOne({ where: { id } });
   if (!child) {
     throw new DatabaseError(`Error al actualizar los datos del perfil`);
@@ -26,12 +26,12 @@ const putChild = async (id, firstname, lastname, gradeLevel, schoolId) => {
   child.firstname = firstname || child.firstname;
   child.lastname = lastname || child.lastname;
   child.gradeLevel = gradeLevel || child.gradeLevel;
-  // child.SchoolId = schoolId || child.SchoolId;
+  child.SchoolId = SchoolId || child.SchoolId;
   await child.save();
   return child;
 };
 
-const deleteChild = async id => {
+const deleteChild = async (id) => {
   const child = await Child.destroy({
     where: {
       id,
@@ -41,7 +41,7 @@ const deleteChild = async id => {
   return child;
 };
 
-const selectChild = async id => {
+const selectChild = async (id) => {
   const child = await Child.findByPk(id, {
     include: [
       {
@@ -65,7 +65,7 @@ const selectChild = async id => {
   return child;
 };
 
-const selectAllChild = async id => {
+const selectAllChild = async (id) => {
   const childs = await Child.findAll({
     where: { UserId: id },
     include: [

@@ -3,7 +3,7 @@ const { Dish, Order } = require("../db");
 require("dotenv").config();
 const axios = require("axios");
 
-const { ACCES_TOKEN_MP } = process.env;
+const { ACCESS_TOKEN_MP } = process.env;
 
 const paymentNotificationHandler = async (req, res) => {
   console.log("ENTRO AL HANDLER")
@@ -13,7 +13,7 @@ const paymentNotificationHandler = async (req, res) => {
         `https://api.mercadopago.com/v1/payments/${req.query["data.id"]}`,
         {
           headers: {
-            Authorization: `Bearer ${ACCES_TOKEN_MP}`,
+            Authorization: `Bearer ${ACCESS_TOKEN_MP}`,
           },
         },
       );

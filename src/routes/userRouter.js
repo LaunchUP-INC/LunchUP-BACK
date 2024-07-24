@@ -15,11 +15,12 @@ const {
 } = require("../handlers/childHandler");
 const { createReviewsHandler } = require("../handlers/reviewsHandler");
 const { paymentHandler } = require("../handlers/paymentHandler");
-const { paymentNotificationHandler } = require("../handlers/paymentNotificationHandler");
+const { getOrdersHandler } = require("../handlers/ordersHandler");
 
 const userRouter = Router();
 
 userRouter.get("/", allUserHandler);
+userRouter.get("/:id/orders", getOrdersHandler);
 userRouter.get("/:email", getUserHandler);
 userRouter.put("/:id", putUserHandler);
 userRouter.delete("/:id", deleteUserHandler);

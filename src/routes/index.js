@@ -4,7 +4,6 @@ const loginRouter = require("./loginRouter");
 const registerRouter = require("./registerRouter");
 const userRouter = require("./userRouter");
 const mealTypesRouter = require("./mealTypesRouter");
-const paymentRouter = require("./paymentRouter");
 const payNotificationRouter = require("../routes/payNotificationRouter");
 const schoolRouter = require("./schoolRouter");
 const reviewsRouter = require("../routes/reviewsRouter");
@@ -18,7 +17,6 @@ router.use("/register", registerRouter);
 router.use("/login", loginRouter);
 router.use("/user", userRouter);
 router.use("/meal", mealTypesRouter);
-// router.use("/payment", paymentRouter); //preferencias
 router.use("/payNotification", payNotificationRouter); //notificaciones
 router.use("/school", schoolRouter);
 router.use("/reviews", reviewsRouter);

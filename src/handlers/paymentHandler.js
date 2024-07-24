@@ -47,6 +47,7 @@ const paymentHandler = async (req, res) => {
         quantity: Number(item.quantity),
         unit_price: Number(item.unit_price),
         currency_id: "ARS",
+        id: item.id
       })),
       back_urls: {
         success: `${FRONT_URL}/payment-success`,

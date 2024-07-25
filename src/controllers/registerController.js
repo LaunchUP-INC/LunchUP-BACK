@@ -11,8 +11,6 @@ const registerUser = async (
   telephone,
   email,
   password,
-  isAdmin,
-  banned,
   children = [] // Valor por defecto para children
 ) => {
   const existingUser = await User.findOne({ where: { email } });
@@ -29,16 +27,14 @@ const registerUser = async (
     telephone,
     email,
     password: hash,
-    isAdmin,
-    banned,
   });
 
   if (children.length > 0) {
     const childPromises = children.map((child) =>
       Child.create({
-        firstname: child.name,
-        lastname: child.lastName,
-        gradeLevel: child.grade,
+        firstame: child.firstname,
+        lastname: child.lastname,
+        gradeLevel: child.gradeLevel,
         UserId: newUser.id,
       })
     );
@@ -82,9 +78,9 @@ const checkUser = async (email) => {
     const token = jwt.sign({ email: user.email, id: user.id }, SECRET_KEY_TOKEN, {
       expiresIn: "1h",
     });
-    return { access: !! user, token };
+    return { access: true, token };
   } else {
-    return { access: !!user }
+    return { access: false }
   }
 };
 

@@ -5,7 +5,6 @@ const {
 
 const ratingDishHandler = async (req, res, next) => {
   const idDish = req.params.id;
-
   const { score } = req.body;
 
   try {

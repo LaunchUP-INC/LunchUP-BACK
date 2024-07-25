@@ -11,8 +11,6 @@ const registerHandler = async (req, res, next) => {
     telephone,
     email,
     password,
-    isAdmin,
-    banned,
     children,
   } = req.body;
 
@@ -23,8 +21,6 @@ const registerHandler = async (req, res, next) => {
       telephone,
       email,
       password,
-      isAdmin,
-      banned,
       children 
     );
 

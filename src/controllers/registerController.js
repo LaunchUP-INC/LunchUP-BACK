@@ -29,10 +29,12 @@ const registerUser = async (
     password: hash,
   });
 
+  console.log("QUE ES CHILDREN", children)
+
   if (children.length > 0) {
     const childPromises = children.map((child) =>
       Child.create({
-        firstame: child.firstname,
+        firstname: child.firstname,
         lastname: child.lastname,
         gradeLevel: child.gradeLevel,
         UserId: newUser.id,

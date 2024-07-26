@@ -60,7 +60,6 @@ const paymentHandler = async (req, res) => {
 
     const preference = new Preference(client);
     const result = await preference.create({ body });
-    console.log("aca esta el resultado", result, result.id);
 
     // Responder con el ID de la preferencia creada
     res.json({

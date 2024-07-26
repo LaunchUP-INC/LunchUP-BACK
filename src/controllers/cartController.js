@@ -16,7 +16,7 @@ const loadCart = async (userId) => {
       throw new Error ('Carrito no encontrado')
     }
     
-    return cart.items;
+    return cart || [];
 };
 
 module.exports = {

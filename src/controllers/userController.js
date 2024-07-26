@@ -50,7 +50,12 @@ const putUser = async (id, userData) => {
   user.lastname = lastname || user.lastname;
   user.telephone = telephone || user.telephone;
   user.email = email || user.email;
-  user.password = password || user.password;
+
+  if (password) {
+    const salt = 10;
+    user.password = await bcrypt.hash(password, salt);
+  }
+
   user.isAdmin = isAdmin ? true : false;
   user.banned = banned ? true : false;
 

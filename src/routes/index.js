@@ -22,7 +22,7 @@ router.use("/payNotification", payNotificationRouter); //notificaciones
 router.use("/school", schoolRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/rating", ratingRouter);
-router.use("/admin", adminRouter);
-router.use("/cart", cartRouter),
+// router.use("/admin", adminRouter);
+// router.use("/cart", cartRouter),
 
 module.exports = router;

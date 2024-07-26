@@ -36,3 +36,16 @@ describe("/login", () => {
     });
   });
 });
+
+describe("/meal", () => {
+  describe("GET /meal", () => {
+    test("It should respond with a status 200", async () => {
+      const response = await request(app).get("/meal");
+      expect(response.statusCode).toBe(200);
+    });
+    test("It should respond with a json object", async () => {
+      const response = await request(app).get("/meal");
+      expect(response.type).toBe("application/json");
+    });
+  });
+});

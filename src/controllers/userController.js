@@ -1,5 +1,6 @@
 const { NotFoundError, ForbiddenError } = require("../errors/customErrors");
 const { User, Child, School } = require("../db");
+const bcrypt = require("bcrypt");
 
 const getAllUser = async () => {
   const users = await User.findAll({

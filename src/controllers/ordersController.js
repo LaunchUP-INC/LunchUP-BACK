@@ -4,7 +4,7 @@ const { Order } = require("../db");
 const getOrders = async (id) => {
   const orders = await Order.findAll({
     where: { UserId: id }, 
-    attributes: ['id', 'items', 'totalPrice', 'status', 'createdAt'],
+    attributes: ['id', 'items', 'totalPrice', 'status', 'createdAt', 'ChildId'],
     order: [['createdAt', 'DESC']], // Ordenar por fecha de creación descendente
   });
 

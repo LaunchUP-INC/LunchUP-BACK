@@ -48,6 +48,8 @@ Dish.hasMany(Rating);
 Rating.belongsTo(Dish);
 User.hasMany(Order);
 Order.belongsTo(User);
+Order.belongsTo(Child);
+Child.hasMany(Order);
 Child.belongsToMany(Dish, { through: "Child_Dish" });
 Dish.belongsToMany(Child, { through: "Child_Dish" });
 Dish.belongsToMany(Meal_Type, { through: "Dish_MealTypes" });

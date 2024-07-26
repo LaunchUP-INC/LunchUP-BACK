@@ -11,7 +11,7 @@ const paymentHandler = async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id, "ID del usuario");
-    const { items, totalAmount } = req.body;
+    const { items, totalAmount, childId } = req.body;
     console.log("ESTOS SON LOS ITEMS", items, totalAmount);
     // Verificar stock disponible
 
@@ -38,6 +38,7 @@ const paymentHandler = async (req, res) => {
       items,
       totalPrice: totalAmount,
       status: "pending",
+      ChildId: childId,
     });
 
     // Crear la preferencia de pago

@@ -33,7 +33,7 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Dish, User, Child, Meal_Type, School, Review, Rating, Order } =
+const { Dish, User, Child, Meal_Type, School, Review, Rating, Order, Cart } =
   sequelize.models;
 
 User.hasMany(Child);
@@ -62,5 +62,6 @@ module.exports = {
   Review,
   Rating,
   Order,
+  Cart,
   conn: sequelize,
 };

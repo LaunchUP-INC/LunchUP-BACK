@@ -8,10 +8,6 @@ const getOrders = async (id) => {
     order: [['createdAt', 'DESC']], // Ordenar por fecha de creación descendente
   });
 
-  if (!orders || orders.length === 0) {
-    throw new Error("No se encontraron ordenes para el usuario");
-  }
-
   return orders;
 };
 

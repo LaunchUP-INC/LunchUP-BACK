@@ -34,7 +34,7 @@ const getUserAdminHandler = async (req, res, next) => {
   }
 };
 
-const putUserHandler = async (req, res) => {
+const putUserHandler = async (req, res, next) => {
   const { id } = req.params;
   const userData = req.body;
   try {

@@ -1,4 +1,4 @@
-const { User, Child } = require("../db");
+const { User, Child, School } = require("../db");
 const bcrypt = require("bcrypt");
 const { ValidationError } = require("../errors/customErrors");
 const jwt = require("jsonwebtoken");
@@ -29,17 +29,24 @@ const registerUser = async (
     password: hash,
   });
 
-  console.log("QUE ES CHILDREN", children)
-
   if (children.length > 0) {
-    const childPromises = children.map((child) =>
-      Child.create({
+    const childPromises = children.map(async (child) => {
+      const createdChild = await Child.create({
         firstname: child.firstname,
         lastname: child.lastname,
         gradeLevel: child.gradeLevel,
+        SchoolId: child.SchoolId,
         UserId: newUser.id,
-      })
-    );
+      });
+
+      const school = await School.findByPk(child.SchoolId);
+      if (school) {
+        await createdChild.setSchool(school);
+      }
+    
+      return createdChild;
+    });
+    
     await Promise.all(childPromises);
   }
 

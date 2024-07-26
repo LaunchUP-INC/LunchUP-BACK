@@ -30,10 +30,10 @@ server.use((_, res, next) => {
 
 server.use("/", routes);
 
-// server.use((req, res, next) => {
-//   const error = new NotFoundError("Not Found");
-//   next(error);
-// });
+server.use((req, res, next) => {
+  const error = new NotFoundError("Not Found");
+  next(error);
+});
 
 server.use(middlewareError);
 

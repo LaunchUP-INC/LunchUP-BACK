@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const { getUserAdminHandler } = require("../handlers/userHandler");
 
-adminRouter = Router();
+const adminRouter = Router();
 
-adminRouter.use("/", getUserAdminHandler);
+adminRouter.get("/", getUserAdminHandler);
 
 module.exports = adminRouter;

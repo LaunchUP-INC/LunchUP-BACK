@@ -14,7 +14,7 @@ const getAllUser = async () => {
   return users;
 };
 
-const getUser = async email => {
+const getUser = async (email) => {
   const user = await User.findOne({
     attributes: {
       exclude: ["password"],
@@ -61,7 +61,27 @@ const putUser = async (id, userData) => {
   user.banned = banned ? true : false;
 
   await user.save();
-  return user;
+
+  const updatedUser = await User.findOne({
+    attributes: {
+      exclude: ["password"],
+    },
+    where: { id },
+    include: [
+      {
+        model: Child,
+        attributes: ["id", "firstname", "lastname", "gradeLevel"],
+        include: [
+          {
+            model: School,
+            attributes: ["id", "name"],
+          },
+        ],
+      },
+    ],
+  });
+
+  return updatedUser;
 };
 
 const deleteUser = async id => {
